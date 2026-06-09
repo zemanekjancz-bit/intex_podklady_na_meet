@@ -42,6 +42,8 @@
   /* ===== ACCORDION ===== */
   .acc { border: 2px solid #e0e0e0; border-radius: 8px; margin-bottom: 16px; overflow: hidden; background: #fff; transition: border-color .2s, box-shadow .2s; }
   .acc[open] { border-color: #5f8c94; box-shadow: 0 6px 22px rgba(95,140,148,0.10); }
+  .container > details.acc:nth-of-type(even) { background: #f4f8f9; }
+  .container > details.acc:nth-of-type(even) > .acc-summary:hover { background: #eaf3f4; }
   .acc-summary { list-style: none; cursor: pointer; padding: 22px 26px; display: flex; align-items: center; gap: 16px; user-select: none; }
   .acc-summary::-webkit-details-marker { display: none; }
   .acc-summary:hover { background: #f7fafa; }
@@ -635,8 +637,8 @@
 
     <div class="foot">
       <span class="foot-text">ondra@on-board.cz · +420 775 915 612 · <a href="https://on-board.cz" target="_blank" style="color:#5f8c94;text-decoration:none;font-weight:600;">on-board.cz</a></span>
-      <div class="foot-video" style="width:100%;border-radius:8px;overflow:hidden;">
-        <video src="V4-Final%20(kopie%202).mp4" autoplay loop muted playsinline style="width:100%;height:auto;display:block;"></video>
+      <div class="foot-video" style="width:100%;display:flex;justify-content:center;margin-top:24px;">
+        <img src="logo_black.png" alt="ON BOARD" style="height:48px;width:auto;">
       </div>
     </div>
 
