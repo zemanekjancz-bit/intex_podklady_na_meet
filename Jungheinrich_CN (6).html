@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketingové řešení pro Jungheinrich</title>
+    <link rel="icon" type="image/png" href="icon_black.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&family=Manrope:wght@400;600;700;800&family=Mulish:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 60px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            color: #5f8c94;
+            margin-bottom: 20px;
+        }
+
+        h1 { font-size: 2.5em; font-weight: 700; border-bottom: 4px solid #5f8c94; padding-bottom: 15px; margin-bottom: 30px; }
+        h2 { font-size: 2em; font-weight: 600; margin-top: 50px; margin-bottom: 30px; }
+        h3 { font-size: 1.5em; font-weight: 600; margin-bottom: 15px; }
+        h4 { font-size: 1.2em; font-weight: 600; margin-bottom: 10px; }
+        p { margin-bottom: 15px; font-size: 1em; }
+        .subtitle { font-size: 1.2em; color: #666; margin-bottom: 40px; }
+
+        /* ===== ANIMATIONS - no default hiding, JS adds .anim-hidden ===== */
+        .anim-hidden.fade-in { opacity: 0; transform: translateY(30px); }
+        .anim-hidden.slide-left { opacity: 0; transform: translateX(-40px); }
+        .anim-hidden.scale-in { opacity: 0; transform: scale(0.92); }
+
+        .fade-in { transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .slide-left { transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .scale-in { transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+
+        .anim-visible { opacity: 1 !important; transform: none !important; }
+
+        .stagger-children .fade-in:nth-child(1) { transition-delay: 0s; }
+        .stagger-children .fade-in:nth-child(2) { transition-delay: 0.12s; }
+        .stagger-children .fade-in:nth-child(3) { transition-delay: 0.24s; }
+        .stagger-children .fade-in:nth-child(4) { transition-delay: 0.36s; }
+
+        .header-animate h1 { animation: headerSlide 0.8s ease-out both; }
+        .header-animate .subtitle { animation: headerSlide 0.8s ease-out 0.15s both; }
+        .header-animate > p:last-of-type { animation: headerSlide 0.8s ease-out 0.3s both; }
+        @keyframes headerSlide { from { opacity: 0; transform: translateY(25px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ===== CARDS WITH ICONS ===== */
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin: 40px 0; }
+        .info-card { background-color: #fff; border: 2px solid #e0e0e0; border-radius: 8px; padding: 30px; transition: all 0.3s ease; }
+        .info-card:hover { border-color: #5f8c94; box-shadow: 0 8px 24px rgba(95, 140, 148, 0.18); transform: translateY(-6px); }
+        .card-icon { width: 48px; height: 48px; background-color: #e8f4f5; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; transition: background-color 0.3s ease; }
+        .info-card:hover .card-icon { background-color: #5f8c94; }
+        .card-icon svg { width: 24px; height: 24px; stroke: #5f8c94; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.3s ease; }
+        .info-card:hover .card-icon svg { stroke: white; }
+        .info-card h3 { color: #5f8c94; margin-bottom: 12px; }
+        .info-card p { color: #666; font-size: 0.95em; margin-bottom: 0; }
+
+        /* ===== STRATEGY BOX ===== */
+        .main-service-box { background-color: #e8f4f5; border: 2px solid #5f8c94; border-radius: 8px; padding: 40px; margin: 40px 0; }
+        .main-service-box h2 { color: #5f8c94; }
+        .main-service-box p { font-size: 1.05em; line-height: 1.7; }
+
+        /* ===== APPROACH / STEPS ===== */
+        .approach-section { background: linear-gradient(135deg, #5f8c94 0%, #4a7179 100%); color: white; padding: 40px; border-radius: 8px; margin: 40px 0; }
+        .approach-section h2, .approach-section h3, .approach-section h4 { color: white; }
+        .approach-section h3 { color: #e8f4f5; }
+        .approach-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 25px; }
+        .step-card { background-color: rgba(255,255,255,0.1); padding: 25px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); transition: background-color 0.3s ease, transform 0.3s ease; }
+        .step-card:hover { background-color: rgba(255,255,255,0.18); transform: translateY(-4px); }
+        .step-number { font-size: 2em; font-weight: 700; color: #e8f4f5; margin-bottom: 10px; }
+        .price-highlight { background-color: rgba(255,255,255,0.15); padding: 15px; border-radius: 6px; margin: 15px 0; font-weight: 600; }
+        .discount-note { color: #e8f4f5; font-size: 0.95em; margin-top: 10px; }
+
+        /* ===== LINKEDIN ADD-ON ===== */
+        .addon-section { background-color: #f0f7f8; padding: 40px; border-radius: 8px; border: 2px dashed #5f8c94; margin: 40px 0; }
+        .addon-badge { display: inline-block; background-color: #5f8c94; color: white; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.8em; text-transform: uppercase; letter-spacing: 1px; padding: 6px 16px; border-radius: 20px; margin-bottom: 20px; }
+        .manager-details { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; margin-top: 25px; }
+        .detail-box { background-color: white; padding: 20px; border-radius: 6px; border-left: 4px solid #5f8c94; transition: transform 0.25s ease, box-shadow 0.25s ease; }
+        .detail-box:hover { transform: translateY(-3px); box-shadow: 0 4px 14px rgba(95,140,148,0.14); }
+        .detail-label { font-weight: 600; color: #5f8c94; font-size: 0.9em; text-transform: uppercase; margin-bottom: 8px; }
+        .detail-value { font-size: 1.3em; font-weight: 600; color: #333; }
+        .detail-note { font-size: 0.85em; color: #666; margin-top: 5px; }
+
+        /* ===== TABLES ===== */
+        .table-section { margin: 40px 0; }
+        .data-table { width: 100%; border-collapse: collapse; margin: 30px 0; background-color: white; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .data-table th { background-color: #5f8c94; color: white; padding: 15px; text-align: left; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.95em; border: 1px solid #4a7179; }
+        .data-table td { padding: 12px 15px; border: 1px solid #e0e0e0; font-size: 0.95em; }
+        .data-table tbody tr:hover { background-color: #f8f9fa; }
+        .data-table td:first-child { background-color: #f8f9fa; font-weight: 600; border-right: 2px solid #d0d0d0; }
+        .data-table .total-row td { background-color: #e8f4f5; font-weight: 600; border-top: 2px solid #5f8c94; }
+        .data-table .total-row td:first-child { background-color: #d6ebee; }
+        .data-table .grand-total-row td { background-color: #5f8c94; color: white; font-weight: 700; border-top: 3px solid #4a7179; }
+        .data-table .grand-total-row td:first-child { background-color: #4a7179; }
+        .table-note { background-color: #fff9e6; border-left: 4px solid #f4c430; padding: 20px; margin: 20px 0; border-radius: 4px; font-size: 0.95em; line-height: 1.6; }
+
+        /* ===== PRICING TABS ===== */
+        .pricing-tabs { display: flex; gap: 0; margin-bottom: 0; }
+        .pricing-tab { flex: 1; padding: 16px 24px; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 1em; border: 2px solid #5f8c94; background-color: #f0f7f8; color: #5f8c94; cursor: pointer; text-align: center; transition: all 0.3s ease; border-bottom: none; border-radius: 8px 8px 0 0; }
+        .pricing-tab:first-child { border-right: none; }
+        .pricing-tab.active { background-color: #5f8c94; color: white; }
+        .pricing-tab:not(.active):hover { background-color: #e0eff1; }
+        .pricing-panel { display: none; border: 2px solid #5f8c94; border-radius: 0 0 8px 8px; padding: 30px; background-color: white; animation: panelFade 0.35s ease-out; }
+        .pricing-panel.active { display: block; }
+        @keyframes panelFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ===== CHART ===== */
+        .chart-container { background-color: #f8f9fa; padding: 40px; border-radius: 8px; margin: 40px 0; }
+        .chart-wrapper { background-color: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); max-width: 500px; margin: 0 auto; }
+        .chart-wrapper h3 { margin-top: 0; }
+        .chart-wrapper canvas { max-height: 400px; }
+        .chart-tabs { display: flex; gap: 0; margin-bottom: 0; max-width: 500px; margin: 0 auto 0 auto; }
+        .chart-tab { flex: 1; padding: 12px 16px; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.9em; border: 2px solid #5f8c94; background-color: #f0f7f8; color: #5f8c94; cursor: pointer; text-align: center; transition: all 0.3s ease; border-bottom: none; border-radius: 8px 8px 0 0; }
+        .chart-tab:first-child { border-right: none; }
+        .chart-tab.active { background-color: #5f8c94; color: white; }
+        .chart-tab:not(.active):hover { background-color: #e0eff1; }
+        .chart-panel { display: none; }
+        .chart-panel.active { display: block; }
+
+        /* ===== TIMELINE v2 ===== */
+        .timeline-v2 { margin: 40px 0; display: flex; flex-direction: column; gap: 0; position: relative; }
+        .timeline-v2::before { content: ''; position: absolute; left: 24px; top: 0; bottom: 0; width: 3px; background: linear-gradient(to bottom, #5f8c94, #b5d8df); border-radius: 3px; }
+        .tl-item { display: flex; align-items: flex-start; gap: 0; position: relative; padding: 0 0 40px 0; }
+        .tl-dot { position: relative; z-index: 2; flex-shrink: 0; width: 50px; display: flex; justify-content: center; padding-top: 18px; }
+        .tl-dot::after { content: ''; width: 16px; height: 16px; background-color: #5f8c94; border: 3px solid white; border-radius: 50%; box-shadow: 0 0 0 3px #5f8c94; display: block; }
+        .tl-body { flex: 1; background-color: #f8f9fa; border-radius: 8px; border-left: 4px solid #5f8c94; padding: 22px 28px; margin-left: 8px; }
+        .tl-label { display: inline-block; background-color: #5f8c94; color: white; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.75em; text-transform: uppercase; letter-spacing: 1px; padding: 4px 14px; border-radius: 4px; margin-bottom: 10px; }
+        .tl-body h4 { margin-top: 0; margin-bottom: 10px; }
+        .tl-body ul { margin-left: 18px; margin-top: 8px; }
+        .tl-body li { margin-bottom: 6px; color: #666; font-size: 0.95em; }
+
+        /* ===== SHOWCASE / DROPDOWN ===== */
+        .showcase-section { margin: 40px 0; }
+        .showcase-item { border: 2px solid #e0e0e0; border-radius: 8px; margin-bottom: 16px; overflow: hidden; transition: border-color 0.3s ease; }
+        .showcase-item.open { border-color: #5f8c94; }
+        .showcase-header { display: flex; align-items: center; gap: 16px; padding: 20px 28px; cursor: pointer; background-color: #fff; transition: background-color 0.3s ease; user-select: none; }
+        .showcase-header:hover { background-color: #f8f9fa; }
+        .showcase-icon-wrap { width: 40px; height: 40px; background-color: #e8f4f5; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background-color 0.3s ease; }
+        .showcase-item.open .showcase-icon-wrap { background-color: #5f8c94; }
+        .showcase-icon-wrap svg { width: 20px; height: 20px; stroke: #5f8c94; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.3s ease; }
+        .showcase-item.open .showcase-icon-wrap svg { stroke: white; }
+        .showcase-title { flex: 1; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 1.1em; color: #333; }
+        .showcase-chevron { width: 24px; height: 24px; transition: transform 0.3s ease; stroke: #999; fill: none; stroke-width: 2; }
+        .showcase-item.open .showcase-chevron { transform: rotate(180deg); stroke: #5f8c94; }
+        .showcase-body { max-height: 0; overflow: hidden; transition: max-height 0.45s ease, padding 0.35s ease; padding: 0 28px; background-color: #fafcfc; }
+        .showcase-item.open .showcase-body { max-height: 800px; padding: 24px 28px; }
+        .showcase-body p { color: #555; font-size: 0.95em; }
+        .showcase-placeholder { width: 100%; min-height: 280px; background-color: #e8f4f5; border: 2px dashed #b5d8df; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; color: #8bbdc7; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.95em; margin-top: 16px; }
+        .showcase-placeholder svg { width: 40px; height: 40px; stroke: #b5d8df; fill: none; stroke-width: 1.5; }
+        .showcase-placeholder code { font-size: 0.8em; background-color: rgba(95,140,148,0.1); padding: 3px 10px; border-radius: 4px; color: #5f8c94; font-family: monospace; }
+        .video-embed { position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; margin-top: 16px; background-color: #000; }
+        .video-embed iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; border-radius: 8px; }
+        .showcase-img { width: 100%; border-radius: 8px; margin-top: 16px; display: block; }
+
+        /* ===== MASONRY GALLERY ===== */
+        .gallery-section { margin: 50px 0 30px; }
+        .gallery-section h2 { color: #e8f4f5; }
+        .gallery-grid {
+            columns: 3;
+            column-gap: 16px;
+        }
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 16px;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .gallery-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(95,140,148,0.35);
+        }
+        .gallery-item img {
+            width: 100%;
+            display: block;
+            border-radius: 10px;
+            border: 2px solid rgba(95,140,148,0.25);
+            transition: border-color 0.3s ease;
+        }
+        .gallery-item:hover img {
+            border-color: #5f8c94;
+        }
+        .gallery-item .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 12px 16px;
+            background: linear-gradient(transparent, rgba(20,30,32,0.85));
+            color: #e0e0e0;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8em;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 0 0 10px 10px;
+        }
+        .gallery-item:hover .gallery-caption {
+            opacity: 1;
+        }
+
+        /* Lightbox */
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(10,15,18,0.92);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+            padding: 40px;
+        }
+        .lightbox-overlay.active {
+            display: flex;
+        }
+        .lightbox-overlay img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            object-fit: contain;
+            animation: lightboxIn 0.3s ease;
+        }
+        @keyframes lightboxIn {
+            from { opacity: 0; transform: scale(0.92); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 24px;
+            right: 32px;
+            width: 44px;
+            height: 44px;
+            background: rgba(255,255,255,0.12);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .lightbox-close:hover {
+            background: rgba(255,255,255,0.25);
+        }
+        .lightbox-close svg {
+            width: 22px;
+            height: 22px;
+            stroke: white;
+            fill: none;
+            stroke-width: 2;
+        }
+        .lightbox-caption {
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.75);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95em;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid { columns: 2; column-gap: 10px; }
+            .gallery-item { margin-bottom: 10px; }
+        }
+        @media (max-width: 480px) {
+            .gallery-grid { columns: 1; }
+        }
+
+        /* ===== SECTION DIVIDER ===== */
+        .section-divider {
+            margin: 80px 0 20px 0;
+            padding: 40px 0;
+            border-top: 4px solid #5f8c94;
+            text-align: center;
+        }
+        .section-divider h1 {
+            border-bottom: none;
+            margin-bottom: 10px;
+            padding-bottom: 0;
+        }
+
+        /* ===== TECH STACK TABLE ===== */
+        .tech-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .tech-table th {
+            background-color: #5f8c94;
+            color: white;
+            padding: 12px 18px;
+            text-align: left;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.9em;
+            border: 1px solid #4a7179;
+            width: 160px;
+        }
+        .tech-table td {
+            padding: 12px 18px;
+            border: 1px solid #e0e0e0;
+            font-size: 0.95em;
+        }
+        .tech-table tbody tr:hover { background-color: #f8f9fa; }
+
+        /* ===== FEATURE GRID ===== */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .feature-card {
+            background-color: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            border-color: #5f8c94;
+            box-shadow: 0 4px 16px rgba(95,140,148,0.15);
+            transform: translateY(-3px);
+        }
+        .feature-card h4 { margin-bottom: 12px; }
+        .feature-card ul { margin: 0; padding-left: 18px; }
+        .feature-card li { margin-bottom: 6px; color: #666; font-size: 0.92em; }
+
+        /* ===== EXPANSION LIST ===== */
+        .expansion-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 12px;
+            margin: 25px 0;
+        }
+        .expansion-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 12px 16px;
+            background-color: #f8f9fa;
+            border-radius: 6px;
+            border-left: 3px solid #b5d8df;
+            font-size: 0.92em;
+            color: #555;
+            transition: border-color 0.2s ease;
+        }
+        .expansion-item:hover { border-left-color: #5f8c94; }
+        .expansion-item svg {
+            width: 16px;
+            height: 16px;
+            stroke: #5f8c94;
+            fill: none;
+            stroke-width: 2;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* ===== KEY BENEFITS (TECH) ===== */
+        .benefits-list {
+            list-style: none;
+            margin: 25px 0;
+            padding: 0;
+        }
+        .benefits-list li {
+            padding: 12px 16px 12px 44px;
+            position: relative;
+            margin-bottom: 10px;
+            background-color: #f0f7f8;
+            border-radius: 6px;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .benefits-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 16px;
+            top: 12px;
+            color: #5f8c94;
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+
+        /* ===== CTA ===== */
+        .cta-section { text-align: center; margin-top: 60px; padding-top: 50px; border-top: 3px solid #5f8c94; }
+        .cta-section h2 { margin-top: 0; }
+        .cta-button { display: inline-block; background: linear-gradient(135deg, #5f8c94 0%, #4a7179 100%); color: white; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.15em; padding: 18px 48px; border-radius: 8px; text-decoration: none; margin-top: 10px; transition: all 0.35s ease; box-shadow: 0 4px 16px rgba(95, 140, 148, 0.3); cursor: pointer; border: none; letter-spacing: 0.3px; }
+        .cta-button:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(95, 140, 148, 0.45); }
+        .cta-button:active { transform: translateY(-1px); }
+        .cta-subtext { margin-top: 18px; color: #888; font-size: 0.9em; }
+
+        /* ===== DARK SECTION (MONTEI) ===== */
+        .dark-section {
+            background-color: #1C1F34;
+            color: #e0e0e0;
+            font-family: 'Mulish', sans-serif;
+            margin: 80px -60px -60px -60px;
+            padding: 60px 60px 60px 60px;
+            border-radius: 0;
+        }
+        .dark-section h1, .dark-section h2, .dark-section h3, .dark-section h4 {
+            font-family: 'Manrope', sans-serif;
+            color: #ffffff;
+        }
+        .dark-section p { color: #c0c4d6; }
+        .dark-section .subtitle { color: #7D8EFF; }
+
+        .dark-section .section-divider {
+            border-top-color: #7D8EFF;
+        }
+        .dark-section .section-divider h1 {
+            color: #ffffff;
+        }
+
+        .dark-section .main-service-box {
+            background-color: rgba(125, 142, 255, 0.08);
+            border-color: rgba(125, 142, 255, 0.3);
+        }
+        .dark-section .main-service-box h2 { color: #7D8EFF; }
+        .dark-section .main-service-box p { color: #c0c4d6; }
+
+        .dark-section .feature-card {
+            background-color: rgba(255, 255, 255, 0.04);
+            border-color: rgba(125, 142, 255, 0.2);
+        }
+        .dark-section .feature-card:hover {
+            border-color: #7D8EFF;
+            box-shadow: 0 4px 16px rgba(125, 142, 255, 0.2);
+        }
+        .dark-section .feature-card h4 { color: #7D8EFF; }
+        .dark-section .feature-card li { color: #b0b4c8; }
+
+        .dark-section .card-icon {
+            background-color: rgba(125, 142, 255, 0.15);
+        }
+        .dark-section .feature-card:hover .card-icon {
+            background-color: #7D8EFF;
+        }
+        .dark-section .card-icon svg {
+            stroke: #7D8EFF;
+        }
+        .dark-section .feature-card:hover .card-icon svg {
+            stroke: white;
+        }
+
+        .dark-section .tech-table th {
+            background-color: #7D8EFF;
+            border-color: #6a7ae6;
+        }
+        .dark-section .tech-table td {
+            background-color: rgba(255,255,255,0.03);
+            border-color: rgba(255,255,255,0.1);
+            color: #c0c4d6;
+        }
+        .dark-section .tech-table tbody tr:hover { background-color: rgba(125, 142, 255, 0.08); }
+
+        .dark-section .services-section {
+            background-color: rgba(255, 255, 255, 0.03) !important;
+        }
+
+        .dark-section .benefits-list li {
+            background-color: rgba(125, 142, 255, 0.08);
+            color: #c0c4d6;
+        }
+        .dark-section .benefits-list li::before { color: #4BD9D9; }
+        .dark-section .benefits-list li strong { color: #ffffff; }
+
+        .dark-section .expansion-item {
+            background-color: rgba(255, 255, 255, 0.04);
+            border-left-color: rgba(125, 142, 255, 0.3);
+            color: #b0b4c8;
+        }
+        .dark-section .expansion-item:hover { border-left-color: #7D8EFF; }
+        .dark-section .expansion-item svg { stroke: #4BD9D9; }
+
+        .dark-section .table-note {
+            background-color: rgba(75, 217, 217, 0.08);
+            border-left-color: #4BD9D9;
+            color: #c0c4d6;
+        }
+        .dark-section .table-note strong { color: #ffffff; }
+
+        .dark-section .cta-section {
+            border-top-color: rgba(125, 142, 255, 0.3);
+        }
+        .dark-section .cta-section h2 { color: #ffffff; }
+        .dark-section .cta-section p { color: #b0b4c8; }
+        .dark-section .cta-button {
+            background: linear-gradient(135deg, #7D8EFF 0%, #4BD9D9 100%);
+            box-shadow: 0 4px 16px rgba(125, 142, 255, 0.35);
+            color: #1C1F34;
+            font-family: 'Manrope', sans-serif;
+        }
+        .dark-section .cta-button:hover {
+            box-shadow: 0 8px 28px rgba(125, 142, 255, 0.5);
+        }
+        .dark-section .cta-subtext { color: #666a80; }
+
+        .dark-section .pricing-block {
+            text-align: center;
+            margin: 60px 0 20px 0;
+            padding: 60px 40px;
+            background: linear-gradient(135deg, rgba(125, 142, 255, 0.15) 0%, rgba(75, 217, 217, 0.10) 100%);
+            border-radius: 20px;
+            border: 2px solid rgba(125, 142, 255, 0.35);
+            position: relative;
+            overflow: hidden;
+        }
+        .dark-section .pricing-block::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 30%, rgba(125, 142, 255, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .dark-section .pricing-block .pricing-label {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #7D8EFF;
+            margin-bottom: 20px;
+        }
+        .dark-section .pricing-block .pricing-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #7D8EFF 0%, #4BD9D9 100%);
+            border-radius: 50%;
+            margin-bottom: 24px;
+        }
+        .dark-section .pricing-block .pricing-icon svg {
+            width: 32px;
+            height: 32px;
+            stroke: #1C1F34;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .dark-section .pricing-block .pricing-amount {
+            font-family: 'Manrope', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin: 0 0 6px 0;
+            line-height: 1.1;
+        }
+        .dark-section .pricing-block .pricing-period {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1.3rem;
+            color: #4BD9D9;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .dark-section .pricing-block .pricing-vat {
+            font-size: 0.85rem;
+            color: #666a80;
+            margin-top: 4px;
+        }
+        .dark-section .pricing-conditions {
+            text-align: center;
+            margin: 24px 0 50px 0;
+        }
+        .dark-section .pricing-conditions p {
+            color: #8a8fb0;
+            font-size: 0.95rem;
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .dark-section .pricing-conditions p svg {
+            width: 16px;
+            height: 16px;
+            stroke: #4BD9D9;
+            fill: none;
+            stroke-width: 2;
+            flex-shrink: 0;
+        }
+
+        /* ===== PRINT ===== */
+        @media print {
+            body { background-color: white; padding: 0; }
+            .container { box-shadow: none; padding: 20px; }
+            .anim-hidden { opacity: 1 !important; transform: none !important; }
+            .info-card, .approach-section, .addon-section, .chart-container { page-break-inside: avoid; }
+            h2 { page-break-after: avoid; }
+            .cta-button { box-shadow: none; }
+            .showcase-body { max-height: none !important; padding: 24px 28px !important; }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .container { padding: 30px 20px; }
+            h1 { font-size: 2em; }
+            h2 { font-size: 1.6em; }
+            .cards-grid, .approach-steps, .manager-details { grid-template-columns: 1fr; }
+            .tl-body { padding: 18px 20px; }
+            .data-table { display: block; overflow-x: auto; white-space: nowrap; }
+            .data-table th, .data-table td { font-size: 0.85em; padding: 10px; }
+            .pricing-tab, .chart-tab { font-size: 0.85em; padding: 12px 10px; }
+            .showcase-header { padding: 16px 20px; }
+            .showcase-item.open .showcase-body { padding: 20px; }
+            .dark-section { margin: 60px -20px -30px -20px; padding: 40px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- ==================== ON BOARD LOGO ==================== -->
+        <div style="text-align: center; margin-bottom: 40px;">
+            <a href="https://on-board.cz" target="_blank" rel="noopener">
+                <img src="logo_black.png" alt="ON BOARD" style="height: 50px;">
+            </a>
+        </div>
+
+        <!-- ==================== HEADER ==================== -->
+        <div class="header-animate">
+            <h1>Marketingové řešení pro Jungheinrich</h1>
+            <p class="subtitle">Náborová kampaň, správa sociálních sítí a video produkce</p>
+            <p>Komplexní řešení pro posílení employer brandingu a náborových aktivit firmy Jungheinrich na českém trhu.</p>
+        </div>
+
+        <!-- ==================== STRATEGIE ==================== -->
+        <div class="main-service-box fade-in">
+            <h2 style="margin-top: 0;">Strategie: Dvousložková kampaň na Meta</h2>
+            <p style="margin-bottom: 0;">Navrhujeme dvousložkovou kampaň na Instagramu a Facebooku. <strong>Brand kampaň</strong> buduje povědomí o firmě (intralogistika, stabilita, firemní kultura), cílená na muže 25–40 let. <strong>Náborová kampaň</strong> přináší autentický pohled zaměstnanců formou interview. Obě části využívají profesionální video obsah (9:16 a 4:5) s voiceoverem, podpořený pravidelnými příspěvky na sociálních sítích.</p>
+        </div>
+
+        <!-- ==================== SLUŽBY S IKONAMI ==================== -->
+        <h2 class="fade-in">Služby zahrnuté ve spolupráci</h2>
+
+        <div class="cards-grid stagger-children">
+            <div class="info-card fade-in">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24"><path d="M21 15V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10"/><polygon points="12 19 3 15 3 9 21 3 21 15 12 19"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+                </div>
+                <h3>Náborová kampaň na Meta</h3>
+                <p>Brand + náborová kampaň na Instagramu a Facebooku. Video formáty 9:16 a 4:5 s voiceoverem.</p>
+                <p style="margin-top: 12px; font-weight: 600; color: #5f8c94;">13 000 Kč / měsíc · 9 hodin</p>
+            </div>
+
+            <div class="info-card fade-in">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                </div>
+                <h3>Správa sociálních sítí</h3>
+                <p>4 příspěvky měsíčně – fotky, carousely, reels. Témata: firemní kultura, edukace, komunikace značky.</p>
+                <p style="margin-top: 12px; font-weight: 600; color: #5f8c94;">7 250 Kč / měsíc · 5 hodin</p>
+            </div>
+
+            <div class="info-card fade-in">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                </div>
+                <h3>Natáčecí den</h3>
+                <p>Kompletní video produkce – scénář, natáčení, postprodukce. Výstupy připravené k publikaci.</p>
+                <p style="margin-top: 12px; font-weight: 600; color: #5f8c94;">38 000 Kč / den · 26 hodin</p>
+            </div>
+        </div>
+
+        <!-- ==================== NATÁČECÍ DNY ==================== -->
+        <div class="approach-section scale-in">
+            <h2 style="margin-top: 0;">Natáčecí den – jak to probíhá</h2>
+            <div class="approach-steps stagger-children">
+                <div class="step-card fade-in">
+                    <div class="step-number">01</div>
+                    <h3>Příprava</h3>
+                    <p>Scénář, výběr lokací, harmonogram, přizpůsobení formátů pro jednotlivé sítě.</p>
+                    <div class="price-highlight">6 hodin</div>
+                </div>
+                <div class="step-card fade-in">
+                    <div class="step-number">02</div>
+                    <h3>Natáčení</h3>
+                    <p>Kamera + zvuková technika, režie a vedení záběrů. 8 hodin (2 × 4h).</p>
+                    <div class="price-highlight">8 hodin (2 × 4h)</div>
+                </div>
+                <div class="step-card fade-in">
+                    <div class="step-number">03</div>
+                    <h3>Postprodukce</h3>
+                    <p>Střih, barevné korekce, zvuk, titulky. Výstup: 4–8 videí v různých formátech.</p>
+                    <div class="price-highlight">12 hodin</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== LINKEDIN – VOLITELNÉ ==================== -->
+        <div class="addon-section fade-in">
+            <div class="addon-badge">+ Volitelné rozšíření</div>
+            <h2 style="margin-top: 0;">Správa LinkedIn</h2>
+            <p>Pro maximální dosah náborových aktivit doporučujeme rozšířit spolupráci o LinkedIn – 1 ambasador + 1 firemní profil.</p>
+
+            <div class="manager-details stagger-children">
+                <div class="detail-box fade-in">
+                    <div class="detail-label">Měsíční paušál</div>
+                    <div class="detail-value">19 000 Kč</div>
+                    <div class="detail-note">13 agenturních hodin</div>
+                </div>
+                <div class="detail-box fade-in">
+                    <div class="detail-label">Příspěvky</div>
+                    <div class="detail-value">4–5 / měsíc</div>
+                    <div class="detail-note">Osobní vs. firemní profil 3–4:1</div>
+                </div>
+                <div class="detail-box fade-in">
+                    <div class="detail-label">Budování sítě</div>
+                    <div class="detail-value">150–200 žádostí</div>
+                    <div class="detail-note">Měsíčně + akviziční činnost</div>
+                </div>
+            </div>
+
+            <ul style="margin: 25px 0 0 20px; color: #555;">
+                <li style="margin-bottom: 8px;">Nastavení profilů v prvních 14 dnech (texty, sekce, vizuál)</li>
+                <li style="margin-bottom: 8px;">Po celý měsíc se aktivně buduje síť – rozesílají se pozvánky na spojení na cílové skupiny</li>
+                <li style="margin-bottom: 8px;">Aktivní týdenní podpora a komunikace</li>
+                <li style="margin-bottom: 8px;">Rozesílání pozvánek ke sledování firemního profilu</li>
+            </ul>
+        </div>
+
+        <!-- ==================== CENOVÉ TABULKY ==================== -->
+        <div class="table-section fade-in">
+            <h2>Cenová nabídka</h2>
+            <div class="pricing-tabs">
+                <div class="pricing-tab active" onclick="switchTab('without')">Bez LinkedIn</div>
+                <div class="pricing-tab" onclick="switchTab('with')">S LinkedIn</div>
+            </div>
+            <div class="pricing-panel active" id="panel-without">
+                <table class="data-table" style="margin-top: 0;">
+                    <thead><tr><th>Služba</th><th>Hodiny</th><th>Měsíční cena</th></tr></thead>
+                    <tbody>
+                        <tr><td>Náborová kampaň na Meta</td><td>9 h</td><td>13 000 Kč</td></tr>
+                        <tr><td>Správa sociálních sítí</td><td>5 h</td><td>7 250 Kč</td></tr>
+                        <tr class="total-row"><td>CELKEM – pravidelný měsíc</td><td><strong>14 h</strong></td><td><strong>20 250 Kč</strong></td></tr>
+                        <tr class="grand-total-row"><td>1. MĚSÍC (1,5×)</td><td><strong>~21 h</strong></td><td><strong>30 375 Kč</strong></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="pricing-panel" id="panel-with">
+                <table class="data-table" style="margin-top: 0;">
+                    <thead><tr><th>Služba</th><th>Hodiny</th><th>Měsíční cena</th></tr></thead>
+                    <tbody>
+                        <tr><td>Náborová kampaň na Meta</td><td>9 h</td><td>13 000 Kč</td></tr>
+                        <tr><td>Správa sociálních sítí</td><td>5 h</td><td>7 250 Kč</td></tr>
+                        <tr><td>Správa LinkedIn</td><td>13 h</td><td>19 000 Kč</td></tr>
+                        <tr class="total-row"><td>CELKEM – pravidelný měsíc</td><td><strong>27 h</strong></td><td><strong>39 250 Kč</strong></td></tr>
+                        <tr class="grand-total-row"><td>1. MĚSÍC (1,5×)</td><td><strong>~40 h</strong></td><td><strong>58 875 Kč</strong></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-note" style="margin-top: 20px;">
+                <strong>Poznámka:</strong> 1. měsíc je navýšen cca 1,5× kvůli nastavení účtů, kampaní a počátečních grafických prací.
+            </div>
+            <div class="table-note" style="margin-top: 12px; background-color: #f0f7f8; border-left-color: #5f8c94; display: flex; align-items: flex-start; gap: 14px;">
+                <svg viewBox="0 0 24 24" style="width: 28px; height: 28px; flex-shrink: 0; margin-top: 2px; stroke: #5f8c94; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <span><strong>Navrhovaný rozpočet na reklamu:</strong> Pro obě Meta kampaně (brand + náborová) doporučujeme měsíční budget <strong>20 000 Kč</strong>. Tento rozpočet jde přímo do platformy Meta a je škálovatelný dle výsledků. Není součástí agenturní cenové nabídky výše.</span>
+            </div>
+        </div>
+
+        <!-- Natáčecí dny – ceník -->
+        <div class="table-section fade-in">
+            <h2>Natáčecí den – ceník</h2>
+            <table class="data-table">
+                <thead><tr><th>Varianta</th><th>Hodiny</th><th>Cena</th></tr></thead>
+                <tbody>
+                    <tr><td>Natáčecí den</td><td>26 h</td><td>38 000 Kč</td></tr>
+                </tbody>
+            </table>
+            <div class="table-note"><strong>Doporučení:</strong> 1 natáčecí den každé 2 měsíce.</div>
+        </div>
+
+        <!-- ==================== GRAF S TABY ==================== -->
+        <div class="chart-container fade-in">
+            <h2 style="margin-top: 0;">Rozložení měsíčního paušálu</h2>
+            <div class="chart-tabs">
+                <div class="chart-tab active" onclick="switchChart('without')">Bez LinkedIn</div>
+                <div class="chart-tab" onclick="switchChart('with')">S LinkedIn</div>
+            </div>
+            <div class="chart-panel active" id="chart-without">
+                <div class="chart-wrapper" style="border-radius: 0 0 8px 8px; border: 2px solid #5f8c94; border-top: none;">
+                    <canvas id="chartWithout"></canvas>
+                </div>
+            </div>
+            <div class="chart-panel" id="chart-with">
+                <div class="chart-wrapper" style="border-radius: 0 0 8px 8px; border: 2px solid #5f8c94; border-top: none;">
+                    <canvas id="chartWith"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== TIMELINE v2 ==================== -->
+        <h2 class="fade-in">Doporučený postup spolupráce</h2>
+
+        <div class="timeline-v2">
+            <div class="tl-item fade-in">
+                <div class="tl-dot"></div>
+                <div class="tl-body">
+                    <div class="tl-label">Fáze 1</div>
+                    <h4>Nastavení a natáčení</h4>
+                    <ul>
+                        <li>Nastavení reklamních účtů a kampaní</li>
+                        <li>Příprava grafických podkladů a šablon</li>
+                        <li>Natáčecí den (scénář → natáčení → postprodukce)</li>
+                        <li>Nastavení LinkedIn profilů (pokud zvoleno)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tl-item fade-in" style="transition-delay: 0.12s;">
+                <div class="tl-dot"></div>
+                <div class="tl-body">
+                    <div class="tl-label">Fáze 2</div>
+                    <h4>Spuštění a rozjezd</h4>
+                    <ul>
+                        <li>Spuštění brand a náborové kampaně na Meta</li>
+                        <li>Pravidelné příspěvky na sociálních sítích</li>
+                        <li>Aktivní budování LinkedIn sítě</li>
+                        <li>První optimalizace na základě dat</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tl-item fade-in" style="transition-delay: 0.24s;">
+                <div class="tl-dot"></div>
+                <div class="tl-body">
+                    <div class="tl-label">Průběžně</div>
+                    <h4>Kontinuální spolupráce</h4>
+                    <ul>
+                        <li>Pravidelná správa všech kanálů</li>
+                        <li>Natáčecí den každé 2 měsíce</li>
+                        <li>Průběžná optimalizace kampaní</li>
+                        <li>Měsíční vyhodnocení výsledků</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== SHOWCASE / DROPDOWN ==================== -->
+        <h2 class="fade-in">Jak si to představit?</h2>
+
+        <div class="showcase-section fade-in">
+
+            <!-- 1. LinkedIn -->
+            <div class="showcase-item" onclick="toggleShowcase(this)">
+                <div class="showcase-header">
+                    <div class="showcase-icon-wrap">
+                        <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                    </div>
+                    <span class="showcase-title">Správa LinkedIn – ukázka</span>
+                    <svg class="showcase-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="showcase-body">
+                    <p>Ukázka správy LinkedIn profilu – tvorba příspěvků, budování sítě a komunikace značky zaměstnavatele.</p>
+                    <img class="showcase-img" id="linkedin-img" src="LinkedIn_showcase.png" alt="Ukázka LinkedIn správy" style="width: 100%; border-radius: 8px;">
+                </div>
+            </div>
+
+            <!-- 2. Meta kampaň -->
+            <div class="showcase-item" onclick="toggleShowcase(this)">
+                <div class="showcase-header">
+                    <div class="showcase-icon-wrap">
+                        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    </div>
+                    <span class="showcase-title">Meta kampaň zaměřená na dosah – ukázka</span>
+                    <svg class="showcase-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="showcase-body">
+                    <p>Ukázka brand kampaně na Instagramu a Facebooku zaměřené na budování povědomí o značce Jungheinrich.</p>
+                    <img class="showcase-img" id="meta-img" src="Meta_showcase.png" alt="Ukázka Meta kampaně" style="width: 100%; border-radius: 8px;">
+                </div>
+            </div>
+
+            <!-- 3. Příklad videa -->
+            <div class="showcase-item" onclick="toggleShowcase(this)">
+                <div class="showcase-header">
+                    <div class="showcase-icon-wrap">
+                        <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                    </div>
+                    <span class="showcase-title">Příklad videa – ukázka výstupu</span>
+                    <svg class="showcase-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="showcase-body">
+                    <p>Ukázka video výstupu z natáčecího dne – formát vhodný pro náborovou kampaň i sociální sítě.</p>
+                    <div class="video-embed">
+                        <iframe id="video-iframe" src="https://www.youtube.com/embed/y32MTuJ9Cvc" title="Ukázka videa" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <p style="margin-top: 12px; font-size: 0.9rem; color: #777; font-style: italic;">Toto je ukázka firemního videa, pro reklamu bude použitý jiný střih a stopáž – Toto slouží jako reference videa z prostředí výroby.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ================================================================ -->
+        <!-- ==================== HR APLIKACE (MONTEI) ===================== -->
+        <!-- ================================================================ -->
+
+        <div class="dark-section">
+
+        <!-- MONTEI LOGO -->
+        <div style="text-align: center; margin-bottom: 40px;">
+            <a href="https://montei.digital" target="_blank" rel="noopener">
+                <img src="Logo-white.png" alt="MONTEI" style="height: 50px;">
+            </a>
+        </div>
+
+        <div class="section-divider fade-in" style="margin-top: 0;">
+            <h1>HR aplikace pro správu kandidátů</h1>
+            <p class="subtitle" style="margin-bottom: 0;">by montei.digital</p>
+        </div>
+
+        <!-- Co aplikace řeší -->
+        <div class="main-service-box fade-in">
+            <h2 style="margin-top: 0;">Co aplikace řeší</h2>
+            <p style="margin-bottom: 0;">Webová aplikace, která spojuje <strong>transparentní kariérní plán</strong> pro zaměstnance a kompletní <strong>systém pro řízení náboru (ATS)</strong>. Postavená na moderních technologiích s AI funkcemi pro automatizaci a efektivitu náborového procesu.</p>
+        </div>
+
+        <!-- Funkce: Veřejná část -->
+        <h2 class="fade-in">A) Veřejná část</h2>
+
+        <div class="feature-grid stagger-children">
+            <div class="feature-card fade-in">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+                </div>
+                <h4>Kariérní plán</h4>
+                <ul>
+                    <li>Interaktivní prezentace kariérního růstu (technický i manažerský track)</li>
+                    <li>Odpovědnosti, rozvojové cíle, mzdové rozsahy, bonusy a benefity pro každou úroveň</li>
+                </ul>
+            </div>
+
+            <div class="feature-card fade-in">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                </div>
+                <h4>Nabídka pozic</h4>
+                <ul>
+                    <li>Seznam otevřených pozic s detailními stránkami</li>
+                    <li>Kroky výběrového řízení, požadované dovednosti</li>
+                </ul>
+            </div>
+
+            <div class="feature-card fade-in">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                </div>
+                <h4>Online přihláška</h4>
+                <ul>
+                    <li>Formulář s uploadem CV (PDF/DOC, max 25 MB)</li>
+                    <li>GDPR souhlas</li>
+                    <li>AI automaticky parsuje CV a generuje SWOT analýzu kandidáta</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Funkce: Administrace -->
+        <h2 class="fade-in">B) Administrace</h2>
+
+        <div class="feature-grid stagger-children">
+            <div class="feature-card fade-in">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                </div>
+                <h4>Dashboard</h4>
+                <ul>
+                    <li>Přehled statistik: pozice, kandidáti, poslední přihlášky</li>
+                </ul>
+            </div>
+
+            <div class="feature-card fade-in">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                </div>
+                <h4>Správa pozic</h4>
+                <ul>
+                    <li>Vytváření, editace, mazání pozic</li>
+                    <li>Konfigurovatelné fáze pipeline (8 výchozích)</li>
+                    <li>Správa kategorií dovedností</li>
+                    <li>Stavy: draft → published → closed → archived</li>
+                </ul>
+            </div>
+
+            <div class="feature-card fade-in">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <h4>Správa kandidátů</h4>
+                <ul>
+                    <li>Tabulkový seznam s filtrací</li>
+                    <li>Kanban board s drag &amp; drop</li>
+                    <li>Hromadný export dat</li>
+                </ul>
+            </div>
+
+            <div class="feature-card fade-in">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </div>
+                <h4>Detail kandidáta</h4>
+                <ul>
+                    <li>Kompletní profil, CV ke stažení, SWOT analýza</li>
+                    <li>Přesun mezi fázemi, zamítnutí s důvodem</li>
+                    <li>Hodnocení dovedností (škála 1–5)</li>
+                    <li>Timeline všech událostí (audit trail)</li>
+                </ul>
+            </div>
+
+            <div class="feature-card fade-in">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <h4>AI Advisor</h4>
+                <ul>
+                    <li>Fit score, silné stránky, rizika</li>
+                    <li>Návrhy otázek na pohovor</li>
+                    <li>Doporučení pro rozhodování</li>
+                </ul>
+            </div>
+
+            <div class="feature-card fade-in">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                </div>
+                <h4>Autentizace a role</h4>
+                <ul>
+                    <li>3 role: super_admin, admin, manager</li>
+                    <li>Zabezpečení na úrovni databáze (Row-Level Security)</li>
+                    <li>Archiv kandidátů s možností obnovení</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Technologický stack -->
+        <div class="services-section fade-in">
+            <h2>Technologický stack</h2>
+            <table class="tech-table">
+                <tbody>
+                    <tr><th>Frontend</th><td>React 18, TypeScript, Tailwind CSS, shadcn/ui</td></tr>
+                    <tr><th>Backend</th><td>Supabase (PostgreSQL, Auth, Storage, Edge Functions)</td></tr>
+                    <tr><th>AI</th><td>Claude API (Anthropic) – parsování CV, AI advisor</td></tr>
+                    <tr><th>Deployment</th><td>Vercel</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Klíčové výhody -->
+        <div class="fade-in">
+            <h2>Klíčové výhody</h2>
+            <ul class="benefits-list">
+                <li><strong>Kariérní plán i ATS v jedné aplikaci</strong> – sjednocený design a technologie</li>
+                <li><strong>AI nábor</strong> – automatické parsování CV, SWOT analýza, AI doporučení pro rozhodování</li>
+                <li><strong>Kanban pipeline</strong> – intuitivní řízení náboru s drag &amp; drop</li>
+                <li><strong>Kompletní audit trail</strong> – každá akce zaznamenána (kdo, kdy, co)</li>
+                <li><strong>Bezpečnost</strong> – GDPR, role-based přístup, zabezpečení na databázi</li>
+                <li><strong>Služba bez starostí</strong> – o infrastrukturu se staráme my, pro vás se jedná o službu, kterou jen používáte</li>
+            </ul>
+        </div>
+
+        <!-- Možná rozšíření -->
+        <div class="fade-in">
+            <h2>Možná rozšíření do budoucna</h2>
+            <p>Aplikaci je možné variabilně přizpůsobit vašim potřebám – rozsah i cenu upravíme podle zvolených funkcí.</p>
+
+            <div class="expansion-grid">
+                <div class="expansion-item">
+                    <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                    <span>Emailové notifikace kandidátům i recruiterům</span>
+                </div>
+                <div class="expansion-item">
+                    <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                    <span>Kalendářová integrace (Google/Outlook)</span>
+                </div>
+                <div class="expansion-item">
+                    <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                    <span>Šablony emailů pro různé fáze náboru</span>
+                </div>
+                <div class="expansion-item">
+                    <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                    <span>Strukturované scorecardy pro více hodnotitelů</span>
+                </div>
+                <div class="expansion-item">
+                    <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                    <span>Talent pool – databáze pro budoucí pozice</span>
+                </div>
+                <div class="expansion-item">
+                    <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                    <span>Vícejazyčná verze (EN)</span>
+                </div>
+                <div class="expansion-item">
+                    <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                    <span>Integrace s job boardy (Jobs.cz, LinkedIn, StartupJobs)</span>
+                </div>
+                <div class="expansion-item">
+                    <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                    <span>AI screening a automatický ranking kandidátů</span>
+                </div>
+                <div class="expansion-item">
+                    <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                    <span>Onboarding modul s checklisty</span>
+                </div>
+                <div class="expansion-item">
+                    <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                    <span>Employee portal s osobním dashboardem</span>
+                </div>
+                <div class="expansion-item">
+                    <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                    <span>HR reporty a metriky (time-to-hire, funnel)</span>
+                </div>
+                <div class="expansion-item">
+                    <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                    <span>API pro napojení na HR systémy</span>
+                </div>
+            </div>
+
+            <div class="table-note">
+                <strong>Flexibilní rozsah:</strong> Aplikaci přizpůsobíme přesně vašim potřebám. Rozsah funkcí i finální cenu nastavíme společně na základě priorit – můžeme začít základní verzí a postupně rozšiřovat.
+            </div>
+        </div>
+
+        <!-- ==================== CENA ==================== -->
+        <div class="pricing-block scale-in">
+            <div class="pricing-icon">
+                <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <div class="pricing-label">Měsíční cena</div>
+            <div class="pricing-amount">11 990 Kč</div>
+            <div class="pricing-period">/ měsíc</div>
+            <div class="pricing-vat">Cena je uvedena bez DPH</div>
+        </div>
+        <div class="pricing-conditions">
+            <p><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Cena předpokládá do 250 CV měsíčně</p>
+            <p><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> 3 uživatelé pro správu systému</p>
+        </div>
+
+        <!-- ==================== UKÁZKY SYSTÉMU ==================== -->
+        <div class="gallery-section fade-in">
+            <h2>Ukázky systému</h2>
+            <p style="color: #aaa; margin-bottom: 24px; font-size: 0.95em;">Náhled do prostředí HR aplikace – kliknutím obrázek zvětšíte.</p>
+            <div class="gallery-grid">
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="screen_dashboard.png" alt="Dashboard – přehled systému">
+                    <div class="gallery-caption">Dashboard – přehled</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="screen_kandidat_1.png" alt="Detail kandidáta – profil a pipeline">
+                    <div class="gallery-caption">Detail kandidáta – profil</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="screen_pozice.png" alt="Seznam pozic">
+                    <div class="gallery-caption">Správa pozic</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="screen_kandidat_overview.png" alt="Kanban přehled kandidátů">
+                    <div class="gallery-caption">Kanban přehled kandidátů</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="screen_kandidat_2.png" alt="Detail kandidáta – časová osa a SWOT analýza">
+                    <div class="gallery-caption">Časová osa a SWOT analýza</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="screen_kandidat_3.png" alt="Detail kandidáta – životopis a AI analýza">
+                    <div class="gallery-caption">Životopis a AI analýza</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lightbox -->
+        <div class="lightbox-overlay" id="lightbox" onclick="closeLightbox(event)">
+            <button class="lightbox-close" onclick="closeLightbox(event)">
+                <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <img id="lightbox-img" src="" alt="">
+            <div class="lightbox-caption" id="lightbox-caption"></div>
+        </div>
+
+        <!-- ==================== MONTEI LOGO FOOTER ==================== -->
+        <div style="text-align: center; padding: 40px 0 20px 0;">
+            <a href="https://montei.digital" target="_blank" rel="noopener">
+                <img src="Logo-white.png" alt="MONTEI" style="height: 40px;">
+            </a>
+        </div>
+
+        </div><!-- /dark-section -->
+    </div>
+
+    <script>
+        // ===== SCROLL ANIMATIONS =====
+        // Step 1: Hide animated elements via JS class (content visible if JS fails)
+        document.querySelectorAll('.fade-in, .slide-left, .scale-in').forEach(function(el) {
+            el.classList.add('anim-hidden');
+        });
+
+        // Step 2: Observe and reveal on scroll
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('anim-visible');
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.fade-in, .slide-left, .scale-in').forEach(function(el) {
+            observer.observe(el);
+        });
+
+        // ===== PRICING TABS =====
+        function switchTab(tab) {
+            var tabs = document.querySelectorAll('.pricing-tab');
+            var panels = document.querySelectorAll('.pricing-panel');
+            for (var i = 0; i < tabs.length; i++) { tabs[i].classList.remove('active'); }
+            for (var i = 0; i < panels.length; i++) { panels[i].classList.remove('active'); }
+            if (tab === 'without') {
+                tabs[0].classList.add('active');
+                document.getElementById('panel-without').classList.add('active');
+            } else {
+                tabs[1].classList.add('active');
+                document.getElementById('panel-with').classList.add('active');
+            }
+        }
+
+        // ===== CHART TABS =====
+        function switchChart(tab) {
+            var tabs = document.querySelectorAll('.chart-tab');
+            var panels = document.querySelectorAll('.chart-panel');
+            for (var i = 0; i < tabs.length; i++) { tabs[i].classList.remove('active'); }
+            for (var i = 0; i < panels.length; i++) { panels[i].classList.remove('active'); }
+            if (tab === 'without') {
+                tabs[0].classList.add('active');
+                document.getElementById('chart-without').classList.add('active');
+            } else {
+                tabs[1].classList.add('active');
+                document.getElementById('chart-with').classList.add('active');
+            }
+        }
+
+        // ===== SHOWCASE TOGGLE =====
+        function toggleShowcase(item) {
+            var items = document.querySelectorAll('.showcase-item');
+            for (var i = 0; i < items.length; i++) {
+                if (items[i] !== item) items[i].classList.remove('open');
+            }
+            item.classList.toggle('open');
+        }
+
+        // ===== LIGHTBOX =====
+        function openLightbox(item) {
+            var img = item.querySelector('img');
+            var caption = item.querySelector('.gallery-caption');
+            document.getElementById('lightbox-img').src = img.src;
+            document.getElementById('lightbox-caption').textContent = caption ? caption.textContent : '';
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLightbox(e) {
+            if (e.target === document.getElementById('lightbox-img')) return;
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeLightbox(e);
+        });
+
+        // ===== CHARTS =====
+        var chartColors = ['#5f8c94', '#8bbdc7', '#b5d8df'];
+
+        function makeChartConfig(labels, data) {
+            return {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{ data: data, backgroundColor: chartColors.slice(0, data.length), borderWidth: 3, borderColor: '#fff' }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    cutout: '55%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { padding: 20, font: { size: 13, family: "'Open Sans', sans-serif" } }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(ctx) {
+                                    var total = 0;
+                                    for (var i = 0; i < ctx.dataset.data.length; i++) { total += ctx.dataset.data[i]; }
+                                    return ctx.label + ' \u2014 ' + Math.round(ctx.parsed / total * 100) + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+        }
+
+        new Chart(
+            document.getElementById('chartWithout').getContext('2d'),
+            makeChartConfig(['N\u00e1borov\u00e1 kampa\u0148 (9h)', 'Spr\u00e1va soc. s\u00edt\u00ed (5h)'], [9, 5])
+        );
+
+        new Chart(
+            document.getElementById('chartWith').getContext('2d'),
+            makeChartConfig(['N\u00e1borov\u00e1 kampa\u0148 (9h)', 'Spr\u00e1va soc. s\u00edt\u00ed (5h)', 'LinkedIn (13h)'], [9, 5, 13])
+        );
+    </script>
+</body>
+</html>

@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INTEX – Scénář a akční plán spolupráce</title>
+<link rel="icon" type="image/png" href="icon_black.png">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Open Sans', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f8f9fa;
+    padding: 40px 20px 40px 60px;
+  }
+
+  .container {
+    max-width: 1600px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 60px 80px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+
+  h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; color: #5f8c94; }
+
+  .doc-eyebrow {
+    font-family: 'Montserrat', sans-serif; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 2px; font-size: 0.8em;
+    color: #5f8c94; margin-bottom: 14px;
+  }
+  h1 {
+    font-size: 2.5em; font-weight: 700; border-bottom: 4px solid #5f8c94;
+    padding-bottom: 15px; margin-bottom: 22px; line-height: 1.15;
+  }
+  .subtitle { font-size: 1.15em; color: #666; margin-bottom: 36px; max-width: 860px; }
+
+
+  /* ===== ACCORDION ===== */
+  .acc { border: 2px solid #e0e0e0; border-radius: 8px; margin-bottom: 16px; overflow: hidden; background: #fff; transition: border-color .2s, box-shadow .2s; }
+  .acc[open] { border-color: #5f8c94; box-shadow: 0 6px 22px rgba(95,140,148,0.10); }
+  .acc-summary { list-style: none; cursor: pointer; padding: 22px 26px; display: flex; align-items: center; gap: 16px; user-select: none; }
+  .acc-summary::-webkit-details-marker { display: none; }
+  .acc-summary:hover { background: #f7fafa; }
+  .acc-summary .step-badge { flex: 0 0 auto; }
+  .acc-titles { flex: 1; min-width: 0; }
+  .acc-title { display: block; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 1.45em; color: #5f8c94; line-height: 1.2; }
+  .acc-sub { display: block; color: #888; font-size: 0.92em; margin-top: 4px; }
+  .acc-chevron { flex: 0 0 auto; width: 22px; height: 22px; color: #5f8c94; transition: transform .25s ease; }
+  .acc[open] .acc-chevron { transform: rotate(180deg); }
+  .acc-body { padding: 4px 26px 24px; }
+  .acc-body .info-card:last-child { margin-bottom: 0; }
+
+  /* ===== STEP BADGE ===== */
+  .step-badge {
+    display: inline-block; background-color: #5f8c94; color: white;
+    font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.72em;
+    text-transform: uppercase; letter-spacing: 1px; padding: 6px 16px; border-radius: 20px;
+  }
+
+  /* ===== ITEM CARDS ===== */
+  .info-card {
+    background-color: #fff; border: 2px solid #e0e0e0; border-radius: 8px;
+    padding: 28px 30px; margin-bottom: 18px; transition: all 0.3s ease;
+  }
+  .info-card:hover { border-color: #5f8c94; box-shadow: 0 8px 24px rgba(95,140,148,0.15); transform: translateY(-3px); }
+
+  .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .info-card h3 { font-size: 1.2em; color: #5f8c94; margin: 0; }
+
+  .need-label { font-family: 'Montserrat', sans-serif; font-weight: 700; color: #333; font-size: 0.95em; }
+  .need-text { color: #666; font-size: 0.96em; margin: 14px 0 0; }
+  .need-list { list-style: none; margin-top: 14px; }
+  .need-list li {
+    position: relative; padding-left: 24px; color: #555;
+    font-size: 0.94em; margin-bottom: 8px;
+  }
+  .need-list li::before {
+    content: '→'; position: absolute; left: 0; top: 0;
+    color: #5f8c94; font-weight: 700;
+  }
+  .need-list li.deliver::before { color: #e07b2a; }
+  .need-list li.deliver { color: #333; }
+  .li-note { display: block; color: #999; font-size: 0.9em; margin-top: 2px; }
+
+  /* ===== LINKEDIN PROFILE PREVIEW ===== */
+  .li-profile {
+    display: flex; align-items: flex-start; gap: 20px;
+    margin-top: 18px; padding: 16px 18px;
+    background: #f7fafa; border: 1px solid #d8e8ea; border-radius: 8px;
+  }
+  .li-profile img {
+    width: 80px; height: 80px; border-radius: 50%;
+    object-fit: cover; border: 2px solid #5f8c94; flex-shrink: 0;
+  }
+  .li-profile-placeholder {
+    width: 80px; height: 80px; border-radius: 50%; flex-shrink: 0;
+    background: #d8e8ea; border: 2px dashed #5f8c94;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7em; color: #5f8c94; font-family: 'Montserrat', sans-serif;
+    font-weight: 700; text-align: center; text-transform: uppercase; letter-spacing: 0.5px;
+    line-height: 1.3; padding: 8px;
+  }
+  .li-profile-info { flex: 1; }
+  .li-profile-name { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1em; color: #333; }
+  .li-profile-title { font-size: 0.88em; color: #666; margin-top: 3px; }
+  .li-profile-link { display: inline-block; margin-top: 8px; font-size: 0.85em; color: #5f8c94; font-weight: 600; text-decoration: none; }
+  .li-profile-link:hover { text-decoration: underline; }
+  .li-confirm { margin-top: 12px; font-size: 0.9em; color: #888; font-style: italic; }
+
+  /* náš výstup */
+  .our-output {
+    margin-top: 16px; padding: 12px 16px;
+    background: #f0f7f8; border-left: 3px solid #5f8c94; border-radius: 6px;
+    font-size: 0.94em; color: #4a7179;
+  }
+
+
+  /* ===== TABLE NOTE ===== */
+  .table-note {
+    background-color: #fff9e6; border-left: 4px solid #f4c430;
+    padding: 20px 24px; margin: 36px 0 0; border-radius: 4px;
+    font-size: 0.95em; line-height: 1.6; color: #555;
+  }
+  .table-note strong { color: #333; }
+
+  /* ===== FOOTER / CTA ===== */
+  .foot {
+    margin-top: 52px; padding-top: 30px; border-top: 2px solid #e0e0e0;
+    display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;
+  }
+  .foot-text { color: #888; font-size: 0.92em; }
+  .cta-button {
+    display: inline-block; background: linear-gradient(135deg, #5f8c94 0%, #4a7179 100%);
+    color: white; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1em;
+    padding: 14px 34px; border-radius: 8px; text-decoration: none;
+    transition: all 0.35s ease; box-shadow: 0 4px 16px rgba(95,140,148,0.3);
+    cursor: pointer; border: none;
+  }
+  .cta-button:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(95,140,148,0.4); }
+
+  /* ===== EXTRAS SECTION ===== */
+  .extras-divider { font-family: 'Montserrat', sans-serif; font-size: 0.78em; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #e07b2a; margin: 20px 0 8px; padding-bottom: 6px; border-bottom: 1px dashed #f0c898; }
+  .info-card--extras { background: #fdf8f3; border-color: #f0c898; }
+  .info-card--extras .card-top h3 { color: #c0662a; }
+
+  /* ===== SUB-ACCORDION ===== */
+  .sub-acc { margin-top: 14px; border: 1px dashed #c8dde0; border-radius: 6px; overflow: hidden; }
+  .sub-acc summary { list-style: none; cursor: pointer; padding: 8px 14px; font-size: 0.88em; color: #5f8c94; font-weight: 600; display: flex; align-items: center; gap: 6px; user-select: none; }
+  .sub-acc summary::-webkit-details-marker { display: none; }
+  .sub-acc[open] summary { background: #f0f7f8; }
+  .sub-acc-body { padding: 4px 14px 10px; }
+  .sub-acc-body .need-list { margin-top: 0; }
+
+  /* ===== SCROLL ANIMATIONS ===== */
+  .anim-hidden { opacity: 0; transform: translateY(28px); }
+  .anim-reveal { transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+  .anim-visible { opacity: 1 !important; transform: none !important; }
+
+  @media print {
+    body { padding: 0; background: #fff; }
+    .container { box-shadow: none; padding: 20px; max-width: none; }
+    .tabs, .foot { display: none; }
+    .panel { display: block !important; }
+    #nabidka { display: none !important; }
+    .info-card { break-inside: avoid; border-color: #ccc; transform: none !important; }
+    .anim-hidden { opacity: 1 !important; transform: none !important; }
+  }
+  @media (max-width: 900px) {
+    body { padding: 20px 16px; }
+    .container { padding: 36px 24px; }
+    h1 { font-size: 1.9em; }
+    .tab { padding: 12px 14px; font-size: 0.9em; }
+    .acc-summary { padding: 18px 18px; gap: 12px; }
+    .acc-title { font-size: 1.2em; }
+    .acc-body { padding: 4px 18px 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="doc-eyebrow">ON BOARD × INTEX · podklad pro úvodní call</div>
+  <h1>INTEX – Scénář a akční plán spolupráce</h1>
+  <p class="subtitle">Připravili jsme strukturovaný podklad k úvodnímu callu, který navazuje na cenovou nabídku. Cílem je společně projít hlavní oblasti spolupráce, potvrdit priority a zjistit, jaké podklady už má INTEX k dispozici. Body s <strong style="color:#e07b2a;">oranžovou šipkou →</strong> označují témata, která potřebujeme na callu ověřit, zodpovědět nebo následně doplnit.</p>
+
+    <!-- KROK 1 -->
+    <details class="acc" open>
+      <summary class="acc-summary">
+        <span class="step-badge">Krok 1</span>
+        <span class="acc-titles">
+          <span class="acc-title">Vizuální identita</span>
+          <span class="acc-sub">Základ, na kterém stojí web i sociální sítě. Tady si spolupráci vyzkoušíme.</span>
+        </span>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </summary>
+      <div class="acc-body">
+
+        <div class="info-card anim-hidden anim-reveal">
+          <div class="card-top"><h3>Logomanuál &amp; loga</h3></div>
+          <ul class="need-list">
+            <li class="deliver">Ověřit, zda existuje stávající logomanuál</li>
+            <li class="deliver">Ověřit, kdo má k dispozici zdrojové soubory loga <span class="li-note">(AI, EPS, SVG, PDF)</span></li>
+            <li class="deliver">Domluvit, kdo je po callu může nahrát na sdílený disk</li>
+          </ul>
+          <div class="our-output"><strong>Náš výstup:</strong> Po získání podkladů vyhodnotíme, zda dává větší smysl facelift současné identity, nebo tvorba nové vizuální identity.</div>
+        </div>
+
+        <div class="info-card anim-hidden anim-reveal">
+          <div class="card-top"><h3>Fotky &amp; vizuální podklady</h3></div>
+          <ul class="need-list">
+            <li class="deliver">Fotky realizací ve vysokém rozlišení</li>
+            <li class="deliver">Stávající tiskové a digitální materiály <span class="li-note">(vizitky, bannery, hlavičkový papír, prezentace, roll-upy…)</span></li>
+            <li>Pošleme odkaz na disk pro nahrání <span class="li-note">(nebo úschovna / jak je vám komfortní)</span></li>
+          </ul>
+        </div>
+
+        <div class="info-card anim-hidden anim-reveal">
+          <div class="card-top"><h3>Názvosloví &amp; architektura značky</h3></div>
+          <p class="need-text">INTEX dnes vystupuje pod několika aktivitami — nábytek a interiéry, sportovní aréna, chystaný hotel. Potřebujeme rozhodnout, jak to celé pojmenovat a jak to vizuálně propojit.</p>
+          <details class="sub-acc">
+            <summary>Existují tři základní přístupy ↓</summary>
+            <div class="sub-acc-body">
+              <ul class="need-list">
+                <li><strong>Holding / zastřešující značka</strong> — jedna mateřská značka INTEX, pod níž stojí aktivity jako divize.
+                  <span class="li-note">Př. INTEX nábytek, INTEX aréna, INTEX hotel — sdílené logo, sdílená identita, jeden silný název.</span>
+                </li>
+                <li><strong>Samostatné značky pod společným vlastníkem</strong> — každá aktivita má vlastní identitu, propojení je nenápadné.
+                  <span class="li-note">Vhodné pokud se aktivity cílí na velmi odlišné zákazníky a nechcete je míchat.</span>
+                </li>
+                <li><strong>Primární značka + vedlejší aktivity</strong> — INTEX nábytek je hlavní, aréna a hotel jsou vedlejší a komunikují se odděleně nebo vůbec.
+                  <span class="li-note">Nejčastější volba pro firmy, kde je jádro byznys jasné a zbytek je rozšíření.</span>
+                </li>
+              </ul>
+            </div>
+          </details>
+          <ul class="need-list" style="margin-top: 16px;">
+            <li class="deliver">Je názvosloví dnes nějak ukotvené, nebo to teprve nastavujeme?</li>
+            <li class="deliver">Chcete, aby aréna a hotel komunikovaly pod INTEX, nebo samostatně?</li>
+            <li class="deliver">Jsou všechny aktivity pod jednou právní entitou, nebo jsou oddělené?
+              <span class="li-note">(Ovlivní web, LinkedIn i celkové nastavení komunikace)</span>
+            </li>
+          </ul>
+          <details class="sub-acc">
+            <summary>Doplňující otázky k callu ↓</summary>
+            <div class="sub-acc-body">
+              <ul class="need-list">
+                <li class="deliver">Když se řekne INTEX, co má být hlavní asociace?</li>
+                <li class="deliver">Je hlavní značkou INTEX nábytek, nebo širší INTEX jako skupina aktivit?</li>
+                <li class="deliver">Mají aréna a hotel pomáhat hlavní značce, nebo mají žít samostatně?</li>
+                <li class="deliver">Je pro vás důležitější jednotný brand, nebo jasné oddělení jednotlivých aktivit?</li>
+              </ul>
+            </div>
+          </details>
+          <div class="our-output">Na základě vašeho rozhodnutí navrhneme přístup — ať už jde o holding s jednotnou identitou, nebo primární značku s oddělenými větvemi. Tohle rozhodnutí ovlivní vše ostatní.</div>
+        </div>
+
+        <div class="info-card anim-hidden anim-reveal">
+          <div class="card-top"><h3>Vizuální inspirace</h3></div>
+          <ul class="need-list">
+            <li class="deliver">Loga nebo vizuální identity, které se vám líbí <span class="li-note">(nemusí být z oboru — cokoliv, co vám přijde na mysl)</span></li>
+            <li class="deliver">Naopak co rozhodně nechcete <span class="li-note">(styl, barevnost, pocit)</span></li>
+          </ul>
+          <div class="our-output">Poslouží jako výchozí bod diskuze — nemusí to být finální rozhodnutí, jde o směr.</div>
+        </div>
+
+      </div>
+    </details>
+
+    <!-- KROK 2 -->
+    <details class="acc">
+      <summary class="acc-summary">
+        <span class="step-badge">Krok 2</span>
+        <span class="acc-titles">
+          <span class="acc-title">Marketingová strategie</span>
+          <span class="acc-sub">Může běžet souběžně s krokem 1. Dá komunikaci logiku a směr.</span>
+        </span>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </summary>
+      <div class="acc-body">
+
+        <div class="info-card anim-hidden anim-reveal">
+          <div class="card-top"><h3>Stávající situace &amp; konkurence</h3></div>
+          <ul class="need-list">
+            <li class="deliver">Existuje zpracovaná strategie nebo positioning dokument? <span class="li-note">(pokud ano, pošlete předem)</span></li>
+            <li class="deliver">Co jste v marketingu dosud zkoušeli a co mělo výsledek? <span class="li-note">(výstavy, online reklama, cold outreach…)</span></li>
+            <li class="deliver">Jedou aktuálně nějaké placené reklamy? <span class="li-note">(Google Ads, Meta Ads, Sklik — kde, jaký budget, kdo spravuje)</span></li>
+            <li class="deliver">2–3 přímí konkurenti v CZ / AT / HR — co dělají dobře, čím se liší</li>
+          </ul>
+        </div>
+
+        <div class="info-card anim-hidden anim-reveal">
+          <div class="card-top"><h3>Cíle, zákazník &amp; positioning</h3></div>
+          <ul class="need-list">
+            <li class="deliver">Krátkodobé cíle <span class="li-note">(0–6 měs.)</span> a střednědobé cíle <span class="li-note">(6–18 měs.)</span> — zvlášť pro CZ / AT / HR</li>
+            <li class="deliver">USP — co INTEX umí nebo nabízí, co jiní ne? <span class="li-note">(dodací lhůty, customizace, reference, servis, know-how…) — USP = unikátní prodejní argument, důvod proč koupit právě od vás</span></li>
+            <li class="deliver">Cílový zákazník — kdo konkrétně rozhoduje? <span class="li-note">(architekt, projektant, developer, investor — jaké projekty, jaký segment)</span></li>
+            <li class="deliver">Cenové pozicionování — kde se INTEX vidí na trhu? <span class="li-note">(premium, střed trhu, dostupné)</span></li>
+            <li class="deliver">Obchodní cyklus — jak dlouho trvá od kontaktu po zakázku? Kdo na straně klienta podepisuje?</li>
+          </ul>
+          <details class="sub-acc">
+            <summary>Doplňující otázky k callu ↓</summary>
+            <div class="sub-acc-body">
+              <ul class="need-list">
+                <li class="deliver">Co dnes obchodně funguje nejlépe? <span class="li-note">(doporučení, poptávky z webu, osobní kontakty, architekti, developeři…)</span></li>
+                <li class="deliver">Který typ zakázek chcete získávat častěji?</li>
+                <li class="deliver">Který typ zakázek naopak nechcete?</li>
+                <li class="deliver">Co je pro vás obchodně největší brzda?</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+
+        <div class="info-card anim-hidden anim-reveal">
+          <div class="card-top"><h3>Analytika &amp; reklamní účty</h3></div>
+          <p class="need-text"><span class="need-label">Co potřebujeme:</span> přístupy ke stávajícím nástrojům, abychom viděli výchozí stav před tím, než začneme strategii stavět.</p>
+          <ul class="need-list">
+            <li class="deliver">Google Analytics / GA4 <span class="li-note">(přístup správce, nebo přidání našeho účtu)</span></li>
+            <li class="deliver">Google Search Console <span class="li-note">(pokud existuje)</span></li>
+            <li class="deliver">Google Ads <span class="li-note">(pokud existuje — přístup do účtu)</span></li>
+            <li class="deliver">Meta Ads <span class="li-note">(reklamní účet v Meta Business Suite — odlišné od správy profilů)</span></li>
+            <li class="deliver">Sklik / Seznam Ads <span class="li-note">(pokud existuje)</span></li>
+          </ul>
+        </div>
+
+        <div class="info-card anim-hidden anim-reveal">
+          <div class="card-top"><h3>Tone of voice &amp; reference</h3></div>
+          <p class="need-text"><span class="need-label">Co potřebujeme:</span> váš pohled na to, jak má značka komunikovat, a příklady, které se vám líbí (i mimo obor).</p>
+          <ul class="need-list">
+            <li class="deliver">Značky / weby, které vás zaujaly</li>
+            <li class="deliver">Čemu se naopak chcete vyhnout</li>
+          </ul>
+        </div>
+
+      </div>
+    </details>
+
+    <!-- KROK 3 -->
+    <details class="acc">
+      <summary class="acc-summary">
+        <span class="step-badge">Krok 3</span>
+        <span class="acc-titles">
+          <span class="acc-title">Redesign webu</span>
+          <span class="acc-sub">Navazuje na vizuální identitu. Aplikuje nový brand na web.</span>
+        </span>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </summary>
+      <div class="acc-body">
+
+        <div class="info-card anim-hidden anim-reveal">
+          <div class="card-top"><h3>Přístup do webu &amp; správa</h3></div>
+          <ul class="need-list">
+            <li class="deliver">Přístup do administrace webu (intexledec.cz) <span class="li-note">(abychom mohli posoudit technický stav)</span></li>
+            <li class="deliver">Kdo web dnes spravuje a bude ho spravovat po spuštění? <span class="li-note">(interně, externista, agentura)</span></li>
+            <li class="deliver">Řeší se aktuálně SEO? <span class="li-note">(technický stav, správná struktura URL, meta popisky)</span></li>
+            <li>Přístup k doméně / hostingu řešíme až při samotném nasazení <span class="li-note">(není potřeba teď)</span></li>
+          </ul>
+          <details class="sub-acc">
+            <summary>Doplňující otázky k callu ↓</summary>
+            <div class="sub-acc-body">
+              <ul class="need-list">
+                <li class="deliver">Jakou roli má web dnes — vizitka, katalog, akviziční nástroj, reference?</li>
+                <li class="deliver">Co na současném webu podle vás nejvíc nefunguje?</li>
+                <li class="deliver">Co by měl nový web změnit obchodně?</li>
+                <li class="deliver">Má web primárně podporovat ČR, nebo už rovnou zahraniční expanzi?</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+
+        <div class="info-card anim-hidden anim-reveal">
+          <div class="card-top"><h3>Platforma &amp; technologie</h3></div>
+          <ul class="need-list">
+            <li class="deliver">Máte preferenci platformy, nebo necháváte výběr na nás? <span class="li-note">(WordPress, Webflow, vlastní rozhraní — doporučíme dle rozsahu a požadavků)</span></li>
+          </ul>
+        </div>
+
+        <div class="info-card anim-hidden anim-reveal">
+          <div class="card-top"><h3>Top 5 realizací pro web</h3></div>
+          <ul class="need-list">
+            <li class="deliver">5 projektů, které chcete na webu prominentně vyzdvihnout <span class="li-note">(název, krátký popis, fotky — nejlépe co nejlepší fotodokumentace)</span></li>
+            <li class="deliver">Co na nich chcete ukázat? <span class="li-note">(materiál, rozsah, typ klienta, lokalita…)</span></li>
+          </ul>
+        </div>
+
+      </div>
+    </details>
+
+    <!-- KROK 4 -->
+    <details class="acc">
+      <summary class="acc-summary">
+        <span class="step-badge">Krok 4</span>
+        <span class="acc-titles">
+          <span class="acc-title">LinkedIn ambassadoring</span>
+          <span class="acc-sub">Nejsilnější nástroj pro B2B akvizici. Začínáme s jedním ambasadorem + firemním profilem.</span>
+        </span>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </summary>
+      <div class="acc-body">
+
+        <div class="info-card anim-hidden anim-reveal">
+          <div class="card-top"><h3>Ambasador: Vojtěch Smejkal</h3></div>
+          <div class="li-profile">
+            <div class="li-profile-placeholder">foto profilu</div>
+            <div class="li-profile-info">
+              <div class="li-profile-name">Vojtěch Smejkal</div>
+              <div class="li-profile-title">Majitel · INTEX nábytek</div>
+              <a class="li-profile-link" href="https://www.linkedin.com/in/vojtech-smejkal" target="_blank">linkedin.com/in/vojtech-smejkal →</a>
+              <div class="li-confirm">Potvrzujeme na callu: je to váš profil?</div>
+            </div>
+          </div>
+          <ul class="need-list" style="margin-top:16px">
+            <li class="deliver">Je k dispozici druhá osoba jako podpora? <span class="li-note">(např. obchodní ředitel, projektový manažer)</span></li>
+          </ul>
+        </div>
+
+        <div class="info-card anim-hidden anim-reveal">
+          <div class="card-top"><h3>Přístupy &amp; podklady</h3></div>
+          <ul class="need-list">
+            <li class="deliver">Přístup k osobnímu profilu ambasadora <span class="li-note">(nutný pro publikování a navazování spojení)</span></li>
+            <li class="deliver">Existuje firemní LinkedIn stránka INTEX? <span class="li-note">(pokud ano, přístup správce — pokud ne, domluvíme založení)</span></li>
+            <li class="deliver">Profilová fotka ambasadora <span class="li-note">(profesionální, ideálně neutrální pozadí — nebo domluvíme focení)</span></li>
+            <li class="deliver">LinkedIn banner — existuje, nebo vytvoříme my? <span class="li-note">(vytvoříme v rámci vizuální identity)</span></li>
+          </ul>
+          <div class="our-output">Na základě přístupu připravíme audit profilu a návrh úprav — odsouhlasíme s ambasadorem před spuštěním.</div>
+        </div>
+
+      </div>
+    </details>
+
+    <!-- KROK 5 -->
+    <details class="acc">
+      <summary class="acc-summary">
+        <span class="step-badge">Krok 5</span>
+        <span class="acc-titles">
+          <span class="acc-title">Mezinárodní expanze</span>
+          <span class="acc-sub">Až když jsou základy hotové. Rakousko &amp; Chorvatsko.</span>
+        </span>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </summary>
+      <div class="acc-body">
+
+        <div class="info-card anim-hidden anim-reveal">
+          <div class="card-top"><h3>Cílové regiony &amp; kontakty</h3></div>
+          <ul class="need-list">
+            <li class="deliver">Máme konkrétní regiony, na které chceme cílit v AT a HR? <span class="li-note">(města, spolkové země — čím konkrétněji, tím přesnější LinkedIn targeting)</span></li>
+            <li class="deliver">Existující kontakty nebo partneři v zahraničí? <span class="li-note">(architekti, projektanti, developeři — základ pro první vlnu oslovení)</span></li>
+            <li class="deliver">Máte hotové projekty v AT nebo HR? <span class="li-note">(fotky, název projektu, klient pokud lze uvést — reference jsou v B2B klíčové)</span></li>
+          </ul>
+        </div>
+
+        <div class="info-card anim-hidden anim-reveal">
+          <div class="card-top"><h3>Obchodní &amp; právní struktura</h3></div>
+          <ul class="need-list">
+            <li class="deliver">Fakturujete zahraniční klienty ze CZ, nebo máte / plánujete entitu v zahraničí?</li>
+            <li class="deliver">Cenotvorba pro AT / HR — stejná politika jako CZ, nebo jiná? <span class="li-note">(AT = výrazně jiná kupní síla, jiná cenová očekávání)</span></li>
+          </ul>
+          <details class="sub-acc">
+            <summary>Doplňující otázky k callu ↓</summary>
+            <div class="sub-acc-body">
+              <ul class="need-list">
+                <li class="deliver">Kdo bude zahraniční poptávky řešit?</li>
+                <li class="deliver">V jakém jazyce dnes zvládnete obchodní komunikaci?</li>
+                <li class="deliver">Máte cenové podklady pro zahraniční trhy?</li>
+                <li class="deliver">Jsou produkty / služby připravené pro odlišné normy, požadavky nebo očekávání trhu?</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+
+        <div class="info-card anim-hidden anim-reveal">
+          <div class="card-top"><h3>Veletrhy &amp; zahraniční akce</h3></div>
+          <ul class="need-list">
+            <li class="deliver">Účastníte se nebo plánujete mezinárodní veletrhy? <span class="li-note">(Orgatec, Vienna Design Week, Denkmal… — obsah z akcí je zlatý důl pro LinkedIn)</span></li>
+            <li class="deliver">Existují lokální oborové akce v AT / HR, kde chcete být vidět?</li>
+          </ul>
+        </div>
+
+        <div class="info-card anim-hidden anim-reveal">
+          <div class="card-top"><h3>Jazykové podklady &amp; překlady</h3></div>
+          <ul class="need-list">
+            <li class="deliver">Existují materiály v němčině nebo chorvatštině? <span class="li-note">(katalogy, prezentace, texty webu — nechceme překládat to, co už máte)</span></li>
+            <li class="deliver">Máte interní kapacitu pro překlady?</li>
+          </ul>
+        </div>
+
+      </div>
+    </details>
+
+    <!-- KROK 6 -->
+    <details class="acc">
+      <summary class="acc-summary">
+        <span class="step-badge">Krok 6</span>
+        <span class="acc-titles">
+          <span class="acc-title">Marketing 360°</span>
+          <span class="acc-sub">Volitelný komplexní balíček. Obsah vyplyne ze strategie (krok 2).</span>
+        </span>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </summary>
+      <div class="acc-body">
+
+        <div class="info-card anim-hidden anim-reveal">
+          <div class="card-top"><h3>Instagram &amp; Facebook</h3></div>
+          <p class="need-text"><span class="need-label">Co potřebujeme:</span> přístup ke stávajícím profilům, abychom je sladili s novými brand guidelines a zapojili do obsahového plánu.</p>
+          <ul class="need-list">
+            <li class="deliver">Přístup do Meta Business Suite / správce stránky</li>
+            <li class="deliver">Kdo dnes profily spravuje?</li>
+            <li class="deliver">Existuje obsahový plán nebo probíhá pravidelná publikace? <span class="li-note">(abychom věděli, od čeho odvíjíme)</span></li>
+          </ul>
+        </div>
+
+        <div class="info-card anim-hidden anim-reveal">
+          <div class="card-top"><h3>Newsletter</h3></div>
+          <ul class="need-list">
+            <li class="deliver">Existuje databáze kontaktů? <span class="li-note">(velikost, jak byla sbírána)</span></li>
+            <li class="deliver">Byl newsletter v minulosti aktivní? <span class="li-note">(nástroj, frekvence, výsledky)</span></li>
+            <li class="deliver">Jaký nástroj používáte nebo preferujete? <span class="li-note">(Mailchimp, Ecomail, Brevo…)</span></li>
+          </ul>
+        </div>
+
+        <div class="info-card anim-hidden anim-reveal">
+          <div class="card-top"><h3>Online reklama</h3></div>
+          <ul class="need-list">
+            <li class="deliver">Zájem o placenou reklamu? <span class="li-note">(Google Ads, Meta Ads, LinkedIn Ads — konkrétní mix závisí na strategii)</span></li>
+            <li class="deliver">Orientační měsíční budget na media spend <span class="li-note">(odlišit od fee za správu)</span></li>
+            <li>Přístupy k reklamním účtům řešíme v Kroku 2 <span class="li-note">(Analytika & reklamní účty)</span></li>
+          </ul>
+        </div>
+
+        <div class="info-card anim-hidden anim-reveal">
+          <div class="card-top"><h3>Správa webu</h3></div>
+          <ul class="need-list">
+            <li class="deliver">Kdo dnes přidává nové realizace nebo aktualizuje obsah webu?</li>
+            <li class="deliver">Jak rychle potřebujete web reagovat na novinky? <span class="li-note">(nová zakázka, nová pozice, aktualita)</span></li>
+          </ul>
+        </div>
+
+        <div class="info-card anim-hidden anim-reveal">
+          <div class="card-top"><h3>Vizuální &amp; grafické práce</h3></div>
+          <ul class="need-list">
+            <li>Grafické práce dle potřeby <span class="li-note">(bannery, podklady pro reklamu, prezentace…)</span></li>
+            <li>Tiskoviny <span class="li-note">(katalogy, letáky, roll-upy…)</span></li>
+            <li>Vizitky</li>
+            <li class="deliver">Jaké grafické materiály aktuálně potřebujete nebo plánujete?</li>
+          </ul>
+        </div>
+
+        <div class="extras-divider">Možnosti navíc</div>
+
+        <div class="info-card info-card--extras anim-hidden anim-reveal">
+          <div class="card-top"><h3>Video &amp; podcast</h3></div>
+          <ul class="need-list">
+            <li class="deliver">Zájem o video obsah? <span class="li-note">(realizace, behind the scenes, produktové video, case studies…)</span></li>
+            <li class="deliver">Zájem o podcast? <span class="li-note">(B2B formát — rozhovory s architekty, designéry, investory)</span></li>
+            <li class="deliver">Máte interní kapacitu pro natáčení, nebo zajišťujeme produkci?</li>
+          </ul>
+        </div>
+
+      </div>
+    </details>
+
+    <!-- PRŮŘEZOVĚ -->
+    <details class="acc">
+      <summary class="acc-summary">
+        <span class="step-badge">Průřezově</span>
+        <span class="acc-titles">
+          <span class="acc-title">Organizace spolupráce</span>
+          <span class="acc-sub">Aby věci běžely hladce i na dálku.</span>
+        </span>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </summary>
+      <div class="acc-body">
+
+        <div class="info-card anim-hidden anim-reveal">
+          <div class="card-top"><h3>Kontaktní osoba</h3></div>
+          <p class="need-text"><span class="need-label">Co potřebujeme:</span> jednu/dvě kontaktní osoby na vaší straně.</p>
+          <ul class="need-list">
+            <li class="deliver">Kdo je hlavní kontakt pro běžnou komunikaci?</li>
+          </ul>
+        </div>
+
+        <div class="info-card anim-hidden anim-reveal">
+          <div class="card-top"><h3>Sdílený disk</h3></div>
+          <ul class="need-list">
+            <li>Zřídíme sdílený Google Drive pro předávání podkladů <span class="li-note">(fotky, loga, dokumenty, přístupy)</span></li>
+          </ul>
+        </div>
+
+        <div class="info-card anim-hidden anim-reveal">
+          <div class="card-top"><h3>Freelo &amp; WhatsApp</h3></div>
+          <ul class="need-list">
+            <li>Úkoly a projekty spravujeme ve Freelo <span class="li-note">(přidáme vás do projektu — stačí e-mail pro pozvání)</span></li>
+            <li>Ad hoc komunikace přes WhatsApp <span class="li-note">(rychlé otázky, urgentní věci — nečekáme na e-mail)</span></li>
+          </ul>
+        </div>
+
+        <div class="info-card anim-hidden anim-reveal">
+          <div class="card-top"><h3>Kontrolní dny</h3></div>
+          <ul class="need-list">
+            <li>Pravidelný kontrolní den 1× měsíčně <span class="li-note">(výsledky, připravený obsah, plán na další období)</span></li>
+            <li class="deliver">Online nebo osobně — dle preference</li>
+          </ul>
+        </div>
+
+      </div>
+    </details>
+
+    <!-- SHRNUTÍ K DODÁNÍ -->
+    <details class="acc">
+      <summary class="acc-summary">
+        <span class="step-badge" style="background: #e07b2a;">K dodání</span>
+        <span class="acc-titles">
+          <span class="acc-title">Shrnutí k dodání</span>
+          <span class="acc-sub">Vše, co můžete připravit nebo poslat ještě před callem.</span>
+        </span>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </summary>
+      <div class="acc-body">
+        <div class="info-card anim-hidden anim-reveal">
+          <p class="need-text">Čím víc toho máme předem, tím víc callem posuneme. Oranžovou šipkou → jsou v celém dokumentu označeny body, kde od vás něco potřebujeme dodat.</p>
+          <ul class="need-list">
+            <li class="deliver">Logomanuál a zdrojové soubory loga <span class="li-note">(AI, EPS, SVG — ne JPG z webu)</span></li>
+            <li class="deliver">Fotky realizací ve vysokém rozlišení</li>
+            <li class="deliver">Stávající tiskové a digitální materiály <span class="li-note">(vizitky, bannery, prezentace, roll-upy…)</span></li>
+            <li class="deliver">Profilová fotka Vojtěcha Smejkala</li>
+            <li class="deliver">Přístupy: web admin, Google Analytics, Meta Business Suite <span class="li-note">(posílejte přes sdílený password manager nebo zabezpečený dokument)</span></li>
+            <li class="deliver">Top 5 realizací, které chcete na webu vyzdvihnout</li>
+            <li class="deliver">Vizuální inspirace — loga nebo identity, které se vám líbí</li>
+            <li class="deliver">Existující prezentace nebo texty o firmě</li>
+          </ul>
+          <div class="our-output">Zřídíme sdílený Google Drive pro předávání podkladů.</div>
+        </div>
+      </div>
+    </details>
+
+    <div class="foot">
+      <span class="foot-text">ondra@on-board.cz · +420 775 915 612 · on-board.cz</span>
+      <video src="V4-Final%20(kopie%202).mp4" autoplay loop muted playsinline style="height:72px;width:auto;display:block;"></video>
+    </div>
+
+</div><!-- /container -->
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('anim-visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.anim-hidden').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

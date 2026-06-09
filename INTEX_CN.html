@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketingové a komunikační řešení pro INTEX</title>
+    <link rel="icon" type="image/png" href="icon_black.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+            padding: 40px 20px 40px 60px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 60px 80px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            color: #5f8c94;
+            margin-bottom: 20px;
+        }
+
+        h1 { font-size: 2.5em; font-weight: 700; border-bottom: 4px solid #5f8c94; padding-bottom: 15px; margin-bottom: 30px; }
+        h2 { font-size: 2em; font-weight: 600; margin-top: 50px; margin-bottom: 30px; }
+        h3 { font-size: 1.5em; font-weight: 600; margin-bottom: 15px; }
+        h4 { font-size: 1.2em; font-weight: 600; margin-bottom: 10px; }
+        p { margin-bottom: 15px; font-size: 1em; }
+        .subtitle { font-size: 1.2em; color: #666; margin-bottom: 40px; }
+
+        /* ===== ANIMATIONS ===== */
+        .anim-hidden.fade-in { opacity: 0; transform: translateY(30px); }
+        .anim-hidden.slide-left { opacity: 0; transform: translateX(-40px); }
+        .anim-hidden.scale-in { opacity: 0; transform: scale(0.92); }
+
+        .fade-in { transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .slide-left { transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .scale-in { transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+
+        .anim-visible { opacity: 1 !important; transform: none !important; }
+
+        .stagger-children .fade-in:nth-child(1) { transition-delay: 0s; }
+        .stagger-children .fade-in:nth-child(2) { transition-delay: 0.12s; }
+        .stagger-children .fade-in:nth-child(3) { transition-delay: 0.24s; }
+        .stagger-children .fade-in:nth-child(4) { transition-delay: 0.36s; }
+        .stagger-children .fade-in:nth-child(5) { transition-delay: 0.48s; }
+
+        .header-animate h1 { animation: headerSlide 0.8s ease-out both; }
+        .header-animate .subtitle { animation: headerSlide 0.8s ease-out 0.15s both; }
+        .header-animate > p:last-of-type { animation: headerSlide 0.8s ease-out 0.3s both; }
+        @keyframes headerSlide { from { opacity: 0; transform: translateY(25px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ===== CARDS WITH ICONS ===== */
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin: 40px 0; }
+        .info-card { background-color: #fff; border: 2px solid #e0e0e0; border-radius: 8px; padding: 30px; transition: all 0.3s ease; }
+        .info-card:hover { border-color: #5f8c94; box-shadow: 0 8px 24px rgba(95, 140, 148, 0.18); transform: translateY(-6px); }
+        .card-icon { width: 48px; height: 48px; background-color: #e8f4f5; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; transition: background-color 0.3s ease; }
+        .info-card:hover .card-icon { background-color: #5f8c94; }
+        .card-icon svg { width: 24px; height: 24px; stroke: #5f8c94; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.3s ease; }
+        .info-card:hover .card-icon svg { stroke: white; }
+        .info-card h3 { color: #5f8c94; margin-bottom: 12px; }
+        .info-card p { color: #666; font-size: 0.95em; margin-bottom: 0; }
+        .info-card ul { margin: 10px 0 0 0; padding-left: 18px; }
+        .info-card li { color: #666; font-size: 0.92em; margin-bottom: 6px; }
+
+        /* ===== STRATEGY BOX ===== */
+        .main-service-box { background-color: #e8f4f5; border: 2px solid #5f8c94; border-radius: 8px; padding: 40px; margin: 40px 0; }
+        .main-service-box h2 { color: #5f8c94; }
+        .main-service-box p { font-size: 1.05em; line-height: 1.7; }
+
+        /* ===== APPROACH / STEPS ===== */
+        .approach-section { background: linear-gradient(135deg, #5f8c94 0%, #4a7179 100%); color: white; padding: 40px; border-radius: 8px; margin: 40px 0; }
+        .approach-section h2, .approach-section h3, .approach-section h4 { color: white; }
+        .approach-section h3 { color: #e8f4f5; }
+        .approach-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 25px; }
+        .step-card { background-color: rgba(255,255,255,0.1); padding: 25px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); transition: background-color 0.3s ease, transform 0.3s ease; }
+        .step-card:hover { background-color: rgba(255,255,255,0.18); transform: translateY(-4px); }
+        .step-number { font-size: 2em; font-weight: 700; color: #e8f4f5; margin-bottom: 10px; }
+
+        /* ===== TABLES ===== */
+        .table-section { margin: 40px 0; }
+        .data-table { width: 100%; border-collapse: collapse; margin: 30px 0; background-color: white; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .data-table th { background-color: #5f8c94; color: white; padding: 15px; text-align: left; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.95em; border: 1px solid #4a7179; }
+        .data-table td { padding: 12px 15px; border: 1px solid #e0e0e0; font-size: 0.95em; }
+        .data-table tbody tr:hover { background-color: #f8f9fa; }
+        .data-table td:first-child { background-color: #f8f9fa; font-weight: 600; border-right: 2px solid #d0d0d0; }
+        .data-table .total-row td { background-color: #e8f4f5; font-weight: 600; border-top: 2px solid #5f8c94; }
+        .data-table .total-row td:first-child { background-color: #d6ebee; }
+        .data-table .grand-total-row td { background-color: #5f8c94; color: white; font-weight: 700; border-top: 3px solid #4a7179; }
+        .data-table .grand-total-row td:first-child { background-color: #4a7179; }
+        .table-note { background-color: #fff9e6; border-left: 4px solid #f4c430; padding: 20px; margin: 20px 0; border-radius: 4px; font-size: 0.95em; line-height: 1.6; }
+
+        /* ===== TIMELINE v2 ===== */
+        .timeline-v2 { margin: 40px 0; display: flex; flex-direction: column; gap: 0; position: relative; }
+        .timeline-v2::before { content: ''; position: absolute; left: 24px; top: 0; bottom: 0; width: 3px; background: linear-gradient(to bottom, #5f8c94, #b5d8df); border-radius: 3px; }
+        .tl-item { display: flex; align-items: flex-start; gap: 0; position: relative; padding: 0 0 40px 0; }
+        .tl-dot { position: relative; z-index: 2; flex-shrink: 0; width: 50px; display: flex; justify-content: center; padding-top: 18px; }
+        .tl-dot::after { content: ''; width: 16px; height: 16px; background-color: #5f8c94; border: 3px solid white; border-radius: 50%; box-shadow: 0 0 0 3px #5f8c94; display: block; }
+        .tl-body { flex: 1; background-color: #f8f9fa; border-radius: 8px; border-left: 4px solid #5f8c94; padding: 22px 28px; margin-left: 8px; }
+        .tl-label { display: inline-block; background-color: #5f8c94; color: white; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.75em; text-transform: uppercase; letter-spacing: 1px; padding: 4px 14px; border-radius: 4px; margin-bottom: 10px; }
+        .tl-body h4 { margin-top: 0; margin-bottom: 10px; }
+        .tl-body ul { margin-left: 18px; margin-top: 8px; }
+        .tl-body li { margin-bottom: 6px; color: #666; font-size: 0.95em; }
+
+        /* ===== FEATURE GRID ===== */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .feature-card {
+            background-color: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            border-color: #5f8c94;
+            box-shadow: 0 4px 16px rgba(95,140,148,0.15);
+            transform: translateY(-3px);
+        }
+        .feature-card h4 { margin-bottom: 12px; }
+        .feature-card ul { margin: 0; padding-left: 18px; }
+        .feature-card li { margin-bottom: 6px; color: #666; font-size: 0.92em; }
+
+        /* ===== KEY BENEFITS ===== */
+        .benefits-list {
+            list-style: none;
+            margin: 25px 0;
+            padding: 0;
+        }
+        .benefits-list li {
+            padding: 12px 16px 12px 44px;
+            position: relative;
+            margin-bottom: 10px;
+            background-color: #f0f7f8;
+            border-radius: 6px;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .benefits-list li::before {
+            content: '\2713';
+            position: absolute;
+            left: 16px;
+            top: 12px;
+            color: #5f8c94;
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+
+        /* ===== ISSUES LIST ===== */
+        .issues-list {
+            list-style: none;
+            margin: 25px 0;
+            padding: 0;
+        }
+        .issues-list li {
+            padding: 12px 16px 12px 44px;
+            position: relative;
+            margin-bottom: 10px;
+            background-color: #fff5f5;
+            border-radius: 6px;
+            font-size: 0.95em;
+            line-height: 1.5;
+            border-left: 3px solid #BD5353;
+        }
+        .issues-list li::before {
+            content: '!';
+            position: absolute;
+            left: 16px;
+            top: 12px;
+            color: #BD5353;
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+        .dark-section .issues-list li {
+            background-color: rgba(189, 83, 83, 0.1);
+            border-left-color: #BD5353;
+            color: #c0c0c0;
+        }
+        .dark-section .issues-list li::before { color: #BD5353; }
+        .dark-section .issues-list li strong { color: #ffffff; }
+
+        /* ===== STEP BADGE ===== */
+        .step-badge {
+            display: inline-block;
+            background-color: #5f8c94;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 6px 18px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+        }
+        .step-badge.concurrent {
+            background-color: #FFB14E;
+            color: #333;
+        }
+        .step-badge.depends {
+            background-color: #75679A;
+        }
+        .dark-section .step-badge { background-color: #5f8c94; }
+
+        /* ===== CTA ===== */
+        .cta-section { text-align: center; margin-top: 60px; padding-top: 50px; border-top: 3px solid #5f8c94; }
+        .cta-section h2 { margin-top: 0; }
+        .cta-button { display: inline-block; background: linear-gradient(135deg, #5f8c94 0%, #4a7179 100%); color: white; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.15em; padding: 18px 48px; border-radius: 8px; text-decoration: none; margin-top: 10px; transition: all 0.35s ease; box-shadow: 0 4px 16px rgba(95, 140, 148, 0.3); cursor: pointer; border: none; letter-spacing: 0.3px; }
+        .cta-button:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(95, 140, 148, 0.45); }
+
+        /* ===== DARK SECTION ===== */
+        .dark-section {
+            background-color: #111111;
+            color: #e0e0e0;
+            margin: 60px -80px 60px -80px;
+            padding: 60px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        /* Pattern in bottom-right corner */
+        .dark-section::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            width: 400px;
+            height: 400px;
+            background-image: url('pattern_greenish.png');
+            background-size: cover;
+            background-position: bottom right;
+            opacity: 0.12;
+            pointer-events: none;
+            z-index: 0;
+        }
+        /* Animated blur glow */
+        .dark-section::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(95,140,148,0.18) 0%, transparent 70%);
+            filter: blur(60px);
+            animation: glowFloat 12s ease-in-out infinite alternate;
+            pointer-events: none;
+            z-index: 0;
+            top: -100px;
+            left: -100px;
+        }
+        @keyframes glowFloat {
+            0% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(200px, 150px) scale(1.2); }
+            66% { transform: translate(-100px, 300px) scale(0.9); }
+            100% { transform: translate(300px, 50px) scale(1.1); }
+        }
+        .dark-section > * { position: relative; z-index: 1; }
+        .dark-section h1, .dark-section h2, .dark-section h3, .dark-section h4 {
+            color: #ffffff;
+        }
+        .dark-section h2 { color: #5f8c94; }
+        .dark-section p { color: #c0c0c0; }
+
+        .dark-section .main-service-box {
+            background-color: rgba(95, 140, 148, 0.1);
+            border-color: rgba(95, 140, 148, 0.4);
+        }
+        .dark-section .main-service-box h2 { color: #5f8c94; }
+        .dark-section .main-service-box p { color: #c0c0c0; }
+
+        .dark-section .info-card {
+            background-color: rgba(255, 255, 255, 0.04);
+            border-color: rgba(95, 140, 148, 0.25);
+        }
+        .dark-section .info-card:hover {
+            border-color: #5f8c94;
+            box-shadow: 0 8px 24px rgba(95, 140, 148, 0.25);
+        }
+        .dark-section .info-card h3 { color: #5f8c94; }
+        .dark-section .info-card p, .dark-section .info-card li { color: #b0b0b0; }
+        .dark-section .card-icon { background-color: rgba(95, 140, 148, 0.15); }
+        .dark-section .info-card:hover .card-icon { background-color: #5f8c94; }
+        .dark-section .card-icon svg { stroke: #5f8c94; }
+        .dark-section .info-card:hover .card-icon svg { stroke: white; }
+
+        .dark-section .feature-card {
+            background-color: rgba(255, 255, 255, 0.04);
+            border-color: rgba(95, 140, 148, 0.25);
+        }
+        .dark-section .feature-card:hover {
+            border-color: #5f8c94;
+            box-shadow: 0 4px 16px rgba(95, 140, 148, 0.2);
+        }
+        .dark-section .feature-card h4 { color: #5f8c94; }
+        .dark-section .feature-card li { color: #b0b0b0; }
+
+        .dark-section .benefits-list li {
+            background-color: rgba(95, 140, 148, 0.1);
+            color: #c0c0c0;
+        }
+        .dark-section .benefits-list li::before { color: #5f8c94; }
+        .dark-section .benefits-list li strong { color: #ffffff; }
+
+        .dark-section .step-card { background-color: rgba(95, 140, 148, 0.15); border-color: rgba(95, 140, 148, 0.3); }
+
+        .dark-section .data-table th { background-color: #5f8c94; border-color: #4a7179; }
+        .dark-section .data-table td { background-color: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1); color: #c0c0c0; }
+        .dark-section .data-table td:first-child { background-color: rgba(255,255,255,0.06); color: #e0e0e0; }
+        .dark-section .data-table tbody tr:hover { background-color: rgba(95, 140, 148, 0.08); }
+
+        .dark-section .table-note {
+            background-color: rgba(95, 140, 148, 0.1);
+            border-left-color: #5f8c94;
+            color: #c0c0c0;
+        }
+        .dark-section .table-note strong { color: #ffffff; }
+
+        .dark-section .tl-body { background-color: rgba(255,255,255,0.05); }
+        .dark-section .tl-body li { color: #b0b0b0; }
+        .dark-section .tl-body h4 { color: #ffffff; }
+
+        /* ===== SECTION DIVIDER ===== */
+        .section-divider {
+            margin: 60px 0 20px 0;
+            padding: 40px 0;
+            border-top: 4px solid #5f8c94;
+            text-align: center;
+        }
+        .section-divider h1 {
+            border-bottom: none;
+            margin-bottom: 10px;
+            padding-bottom: 0;
+        }
+
+        /* ===== ADDON SECTION ===== */
+        .addon-section { background-color: #f0f7f8; padding: 40px; border-radius: 8px; border: 2px dashed #5f8c94; margin: 40px 0; }
+        .addon-badge { display: inline-block; background-color: #5f8c94; color: white; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.8em; text-transform: uppercase; letter-spacing: 1px; padding: 6px 16px; border-radius: 20px; margin-bottom: 20px; }
+
+        /* ===== UNIFIED PRICE BLOCK ===== */
+        .price-block {
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            background: linear-gradient(135deg, rgba(95,140,148,0.12) 0%, rgba(95,140,148,0.06) 100%);
+            border: 2px solid rgba(95,140,148,0.3);
+            border-radius: 12px;
+            padding: 16px 28px;
+            margin: 20px 0;
+        }
+        .price-block .price-hours {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85em;
+            color: #666;
+            font-weight: 600;
+        }
+        .price-block .price-amount {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4em;
+            font-weight: 800;
+            color: #5f8c94;
+        }
+        .price-block .price-rate {
+            font-size: 0.75em;
+            color: #999;
+            font-weight: 400;
+        }
+        .dark-section .price-block {
+            background: linear-gradient(135deg, rgba(95,140,148,0.15) 0%, rgba(95,140,148,0.08) 100%);
+            border-color: rgba(95,140,148,0.4);
+        }
+        .dark-section .price-block .price-hours { color: #b0b0b0; }
+        .dark-section .price-block .price-amount { color: #ffffff; }
+        .dark-section .price-block .price-rate { color: #888; }
+
+        /* ===== FLOW INFOGRAPHIC ===== */
+        .flow-path {
+            stroke-dasharray: 1600;
+            stroke-dashoffset: 1600;
+            animation: pathCycle 12s ease-in-out infinite;
+        }
+        @keyframes pathCycle {
+            0%   { stroke-dashoffset: 1600; opacity: 0; }
+            5%   { opacity: 1; }
+            50%  { stroke-dashoffset: 0; opacity: 1; }
+            75%  { stroke-dashoffset: 0; opacity: 1; }
+            85%  { opacity: 0; }
+            100% { stroke-dashoffset: 1600; opacity: 0; }
+        }
+        .flow-dot {
+            opacity: 0;
+            transform-origin: center;
+            animation: dotCycle 12s ease-in-out infinite;
+        }
+        @keyframes dotCycle {
+            0%   { opacity: 0; transform: scale(0); }
+            8%   { opacity: 0; transform: scale(0); }
+            12%  { opacity: 1; transform: scale(1.2); }
+            15%  { transform: scale(1); }
+            75%  { opacity: 1; transform: scale(1); }
+            85%  { opacity: 0; transform: scale(0); }
+            100% { opacity: 0; transform: scale(0); }
+        }
+        .flow-label {
+            fill: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            opacity: 0;
+            animation: labelCycle 12s ease-in-out infinite;
+        }
+        @keyframes labelCycle {
+            0%   { opacity: 0; }
+            10%  { opacity: 0; }
+            15%  { opacity: 1; }
+            75%  { opacity: 1; }
+            85%  { opacity: 0; }
+            100% { opacity: 0; }
+        }
+
+        /* ===== MAC MOCKUP ===== */
+        .mockup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 30px 0; }
+        @media (max-width: 900px) { .mockup-grid { grid-template-columns: 1fr; } }
+        .mac-frame { background: #1a1a1a; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+        .mac-topbar { height: 32px; background: linear-gradient(to bottom, #3a3a3a, #2a2a2a); display: flex; align-items: center; padding: 0 12px; gap: 6px; }
+        .mac-dot { width: 10px; height: 10px; border-radius: 50%; }
+        .mac-dot.red { background: #ff5f57; }
+        .mac-dot.yellow { background: #febc2e; }
+        .mac-dot.green { background: #28c840; }
+        .mac-screen { height: 420px; overflow-y: auto; cursor: grab; scrollbar-width: thin; scrollbar-color: rgba(95,140,148,0.4) transparent; position: relative; }
+        .mac-screen::-webkit-scrollbar { width: 6px; }
+        .mac-screen::-webkit-scrollbar-track { background: transparent; }
+        .mac-screen::-webkit-scrollbar-thumb { background: rgba(95,140,148,0.4); border-radius: 3px; }
+        .mac-screen img { width: 100%; display: block; }
+        .mac-screen.auto-scroll { scroll-behavior: smooth; }
+        .mac-label { text-align: center; margin-top: 12px; font-family: 'Montserrat', sans-serif; font-size: 0.85em; font-weight: 600; color: #888; }
+
+        /* ===== MODERN PRICE TABLE ===== */
+        .ptable { display: flex; flex-direction: column; gap: 3px; margin: 30px 0; border-radius: 14px; overflow: hidden; }
+        .ptable-head { display: grid; grid-template-columns: 2fr 1fr 1.5fr 1.5fr; padding: 14px 20px; background: rgba(95,140,148,0.25); }
+        .ptable-head span { font-family: 'Montserrat', sans-serif; font-size: 0.78em; font-weight: 700; color: #5f8c94; text-transform: uppercase; letter-spacing: 0.5px; }
+        .ptable-row { display: grid; grid-template-columns: 2fr 1fr 1.5fr 1.5fr; padding: 16px 20px; align-items: center; transition: background 0.2s; }
+        .ptable-row:nth-child(odd) { background: rgba(255,255,255,0.03); }
+        .ptable-row:nth-child(even) { background: rgba(255,255,255,0.06); }
+        .ptable-row:hover { background: rgba(95,140,148,0.1); }
+        .ptable-row .pt-service { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.92em; color: #e0e0e0; }
+        .ptable-row .pt-hours { color: #999; font-size: 0.9em; }
+        .ptable-row .pt-price { font-family: 'Montserrat', sans-serif; font-weight: 700; color: #ffffff; font-size: 0.95em; }
+        .ptable-row .pt-old { color: #555; text-decoration: line-through; font-size: 0.85em; }
+        .ptable-row.pt-total { background: rgba(95,140,148,0.15); }
+        .ptable-row.pt-total .pt-service { color: #5f8c94; font-weight: 700; }
+        .ptable-row.pt-total .pt-price { font-size: 1.05em; font-weight: 800; }
+        .ptable-row.pt-total .pt-old { font-weight: 700; color: #666; }
+        .ptable-row.pt-grand { background: linear-gradient(135deg, rgba(95,140,148,0.3) 0%, rgba(95,140,148,0.15) 100%); }
+        .ptable-row.pt-grand .pt-service { color: #ffffff; font-weight: 800; font-size: 1em; }
+        .ptable-row.pt-grand .pt-price { color: #5f8c94; font-size: 1.15em; font-weight: 800; }
+        @media (max-width: 768px) {
+            .ptable-head, .ptable-row { grid-template-columns: 1fr; gap: 4px; }
+            .ptable-head span:not(:first-child) { display: none; }
+            .ptable-row .pt-hours, .ptable-row .pt-old { font-size: 0.8em; }
+        }
+
+        /* ===== GALLERY BADGE ===== */
+        .gallery-badge { position: absolute; top: 12px; left: 12px; background: #5f8c94; color: white; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.7em; text-transform: uppercase; letter-spacing: 1px; padding: 5px 12px 5px 10px; border-radius: 6px; display: flex; align-items: center; gap: 5px; z-index: 2; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+        .gallery-badge svg { width: 14px; height: 14px; stroke: white; fill: none; stroke-width: 2.5; }
+
+        /* ===== GALLERY ===== */
+        .gallery-grid { columns: 3; column-gap: 16px; }
+        .gallery-item { break-inside: avoid; margin-bottom: 16px; border-radius: 10px; overflow: hidden; cursor: pointer; position: relative; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .gallery-item:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(95,140,148,0.35); }
+        .gallery-item img { width: 100%; display: block; border-radius: 10px; border: 2px solid #e0e0e0; transition: border-color 0.3s ease; }
+        .gallery-item:hover img { border-color: #5f8c94; }
+        .gallery-item .gallery-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 12px 16px; background: linear-gradient(transparent, rgba(20,30,32,0.85)); color: #e0e0e0; font-family: 'Montserrat', sans-serif; font-size: 0.8em; font-weight: 600; opacity: 0; transition: opacity 0.3s ease; border-radius: 0 0 10px 10px; }
+        .gallery-item:hover .gallery-caption { opacity: 1; }
+
+        /* Lightbox */
+        .lightbox-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(10,15,18,0.92); z-index: 9999; align-items: center; justify-content: center; cursor: zoom-out; padding: 40px; }
+        .lightbox-overlay.active { display: flex; }
+        .lightbox-overlay img { max-width: 90vw; max-height: 85vh; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.6); object-fit: contain; animation: lightboxIn 0.3s ease; }
+        @keyframes lightboxIn { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
+        .lightbox-close { position: absolute; top: 24px; right: 32px; width: 44px; height: 44px; background: rgba(255,255,255,0.12); border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+        .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+        .lightbox-close svg { width: 22px; height: 22px; stroke: white; fill: none; stroke-width: 2; }
+        .lightbox-caption { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.75); font-family: 'Montserrat', sans-serif; font-size: 0.95em; font-weight: 600; text-align: center; }
+
+        @media (max-width: 768px) {
+            .gallery-grid { columns: 2; column-gap: 10px; }
+            .gallery-item { margin-bottom: 10px; }
+        }
+        @media (max-width: 480px) {
+            .gallery-grid { columns: 1; }
+        }
+
+        /* ===== DOCK NAV ===== */
+        .dock-nav {
+            position: fixed;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 9000;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            padding: 14px 12px 14px 10px;
+            background: rgba(20, 20, 20, 0.78);
+            backdrop-filter: blur(24px) saturate(1.8);
+            -webkit-backdrop-filter: blur(24px) saturate(1.8);
+            border-radius: 0 16px 16px 0;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-left: none;
+            box-shadow: 4px 0 30px rgba(0,0,0,0.3);
+            width: 40px;
+            overflow: hidden;
+            transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1), padding 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .dock-nav:hover {
+            width: 210px;
+            padding: 14px 16px 14px 14px;
+        }
+        /* MENU label - fixed, rotated 90deg, visible when dock closed */
+        .dock-menu-label {
+            position: fixed;
+            left: 5px;
+            top: 50%;
+            transform: translateY(-50%) rotate(-90deg);
+            transform-origin: center center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.65em;
+            font-weight: 800;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #5f8c94;
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 9001;
+            transition: opacity 0.25s ease;
+        }
+        .dock-nav:hover ~ .dock-menu-label,
+        .dock-menu-label.hidden {
+            opacity: 0;
+        }
+        .dock-nav a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 7px 8px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background 0.2s ease;
+            position: relative;
+            opacity: 0;
+            transition: opacity 0.2s ease, background 0.2s ease;
+        }
+        .dock-nav:hover a {
+            opacity: 1;
+        }
+        .dock-nav a:hover {
+            background: rgba(95, 140, 148, 0.2);
+        }
+        .dock-nav a.active {
+            background: rgba(95, 140, 148, 0.25);
+        }
+        .dock-nav .dock-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            stroke: rgba(255,255,255,0.5);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: stroke 0.2s ease;
+        }
+        .dock-nav a:hover .dock-icon,
+        .dock-nav a.active .dock-icon {
+            stroke: #5f8c94;
+        }
+        .dock-nav .dock-label {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.78em;
+            font-weight: 700;
+            color: rgba(255,255,255,0.85);
+            white-space: nowrap;
+        }
+        .dock-nav a.active .dock-label {
+            color: #5f8c94;
+        }
+        /* Indicator dot for active */
+        .dock-nav a.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 3px;
+            background: #5f8c94;
+            border-radius: 50%;
+        }
+        @media (max-width: 768px) {
+            .dock-nav { display: none; }
+        }
+
+        /* ===== PRINT ===== */
+        @media print {
+            body { background-color: white; padding: 0; }
+            .container { box-shadow: none; padding: 20px; }
+            .anim-hidden { opacity: 1 !important; transform: none !important; }
+            .info-card, .approach-section, .dark-section { page-break-inside: avoid; }
+            h2 { page-break-after: avoid; }
+            .dark-section { margin: 40px -20px; }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .container { padding: 30px 20px; }
+            h1 { font-size: 2em; }
+            h2 { font-size: 1.6em; }
+            .cards-grid, .approach-steps, .feature-grid { grid-template-columns: 1fr; }
+            .tl-body { padding: 18px 20px; }
+            .data-table { display: block; overflow-x: auto; white-space: nowrap; }
+            .dark-section { margin: 40px -20px; padding: 40px 20px; }
+            .mockup-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- ==================== ON BOARD LOGO ==================== -->
+        <div style="text-align: center; margin-bottom: 40px;">
+            <a href="https://on-board.cz" target="_blank" rel="noopener">
+                <img src="logo_black.png" alt="ON BOARD" style="height: 50px;">
+            </a>
+        </div>
+
+        <!-- ==================== HEADER ==================== -->
+        <div class="header-animate">
+            <h1>Marketingové a komunikační řešení pro INTEX</h1>
+            <p class="subtitle">Vizuální identita, web, strategie a digitální komunikace</p>
+            <p>Společnost INTEX Ledeč se pohybuje v oblasti designového nábytku a interiérů, provozuje sportovní arénu v Ledči nad Sázavou a připravuje výstavbu hotelu. S rozšiřujícím se portfoliem aktivit &ndash; od nábytku a interiérů přes sportovní arénu po chystaný hotel &ndash; je potřeba dát celé komunikaci jednotný směr &ndash; od vizuální identity přes web až po sociální sítě a mezinárodní expanzi.</p>
+        </div>
+
+
+        <!-- ================================================================ -->
+        <!-- ==================== NAŠE ZHODNOCENÍ =========================== -->
+        <!-- ================================================================ -->
+
+        <div id="zhodnoceni" class="dark-section">
+            <h2 style="margin-top: 0;">Naše zhodnocení</h2>
+            <p>Prošli jsme web intexledec.cz, Instagram, Facebook i celkovou online prezentaci společnosti INTEX. Tady je shrnutí toho, co vidíme.</p>
+
+            <h3 style="color: #5f8c94; margin-top: 35px;">Na čem se dá stavět</h3>
+
+            <ul class="benefits-list" style="margin-top: 20px;">
+                <li><strong>Kvalitní realizace</strong> &ndash; projekty jako Villa 9, Elbrichova bouda nebo Resort Oblík vypadají výborně. Firma dělá zajímavé zakázky po celé republice i v zahraničí.</li>
+                <li><strong>Dobré fotky na sociálních sítích</strong> &ndash; na Instagramu i Facebooku jsou fotky, které jsou použitelné i pro web. Existuje aktivita, na které jde stavět.</li>
+                <li><strong>Logo jako základ</strong> &ndash; stávající logo je jednoduché a funkční. Je to dobrý výchozí bod pro rozšíření vizuální identity.</li>
+                <li><strong>Video obsah</strong> &ndash; na sociálních sítích existují videa, která by šlo přestříhat a využít pro profesionálnější prezentaci.</li>
+                <li><strong>Existující aktivita</strong> &ndash; firma publikuje, má základ na Instagramu i Facebooku. Není to od nuly &ndash; je na čem stavět.</li>
+            </ul>
+
+            <h3 style="color: #BD5353; margin-top: 40px;">Kde vidíme prostor pro zlepšení</h3>
+
+            <ul class="issues-list" style="margin-top: 20px;">
+                <li><strong>Web neodpovídá kvalitě práce</strong> &ndash; kdo dělá designový nábytek, měl by mít designový web. Současné fonty, barvy a infografika působí zastarale.</li>
+                <li><strong>Realizace jsou špatně prezentované</strong> &ndash; chybí architektonický přístup, galerie a důraz na fotografie. Ikonky na stránce referencí neodpovídají úrovni práce. Fotky by měly být dominantním prvkem.</li>
+                <li><strong>Vizuální identita není ucelená</strong> &ndash; v propagačních materiálech se střídají různé fonty, barvy (zelená, zlatá) bez jasné logiky. Chybí konzistentní vizuální jazyk.</li>
+                <li><strong>Firma je těžko dohledatelná</strong> &ndash; při hledání &bdquo;INTEX&ldquo; se objevují bazény, online shopy a další firmy. SEO prakticky neexistuje.</li>
+                <li><strong>Chybí propojení webu a sociálních sítí</strong> &ndash; na webu nejsou prokliky na Instagram ani Facebook. Kanály fungují izolovaně.</li>
+                <li><strong>Kontaktní stránka a kariéra</strong> &ndash; kontaktní stránka je prázdná a neprofesionální. Pracovní pozice se špatně čtou a nikoho neosloví.</li>
+                <li><strong>Nejednotné názvosloví</strong> &ndash; web je pod &bdquo;INTEX Ledeč&ldquo;, sociální sítě pod &bdquo;INTEX nábytek&ldquo;, aréna samostatně. Člověk neví, jestli je to jedna firma, nebo tři různé.</li>
+                <li><strong>Chybí logika a návaznost</strong> &ndash; sociální sítě, web &ndash; každý kanál jde svou cestou. Věci na sebe nenavazují a nepodporují se.</li>
+            </ul>
+
+            <p style="margin-top: 30px; text-align: center;">
+                <a href="#galerie-stav" style="display: inline-block; background-color: rgba(95, 140, 148, 0.2); border: 2px solid #5f8c94; color: #5f8c94; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.95em; padding: 14px 32px; border-radius: 8px; text-decoration: none; transition: all 0.3s ease; cursor: pointer;">Ukázky současného stavu &darr;</a>
+            </p>
+        </div>
+
+
+        <!-- ================================================================ -->
+        <!-- ==================== NAVRHOVANÝ POSTUP ========================= -->
+        <!-- ================================================================ -->
+
+        <div class="main-service-box fade-in">
+            <h2 style="margin-top: 0;">Náš přístup: krok za krokem</h2>
+            <p style="margin-bottom: 0;">Navrhujeme postupovat po krocích. Začneme <strong>vizuální identitou</strong> &ndash; na ní si spolupráci vyzkoušíme a vytvoříme základ, na kterém stojí všechno ostatní. Teprve potom přijde na řadu <strong>redesign webu</strong>, který novou identitu aplikuje. Mezitím můžeme souběžně pracovat na <strong>marketingové strategii</strong>, která dá celé komunikaci logiku a směr. Následují <strong>sociální sítě</strong> a <strong>mezinárodní expanze</strong>.</p>
+        </div>
+
+
+        <!-- ================================================================ -->
+        <!-- ==================== KROK 1: VIZUÁLNÍ IDENTITA ================= -->
+        <!-- ================================================================ -->
+
+        <h2 id="krok1" class="fade-in">Krok 1: Facelift vizuální identity</h2>
+        <span class="step-badge">Základ spolupráce</span>
+        <p>Vizuální identita je fundament, na kterém stojí web, sociální sítě i veškerá komunikace. Bez jednotného vizuálního jazyka nelze efektivně budovat značku. Na tomto kroku si spolupráci vyzkoušíme.</p>
+
+        <div class="cards-grid stagger-children">
+            <div class="info-card fade-in">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r="2.5"/><path d="M17 2H7a5 5 0 0 0-5 5v10a5 5 0 0 0 5 5h10a5 5 0 0 0 5-5V7a5 5 0 0 0-5-5z"/></svg>
+                </div>
+                <h3>Sjednocení značky</h3>
+                <ul>
+                    <li>Sjednocení názvosloví (INTEX Ledeč / INTEX nábytek / aréna)</li>
+                    <li>Jednotný vizuální jazyk napříč všemi aktivitami</li>
+                    <li>Pravidla použití loga (ochranné zóny, min. velikosti)</li>
+                </ul>
+            </div>
+
+            <div class="info-card fade-in">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                </div>
+                <h3>Barvy &amp; typografie</h3>
+                <ul>
+                    <li>Definice barevné palety (primární + sekundární)</li>
+                    <li>Sjednocení fontů pro web, tisk a socky</li>
+                    <li>Kombinace barev, která jde k sobě</li>
+                </ul>
+            </div>
+
+            <div class="info-card fade-in">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                </div>
+                <h3>Brand book &amp; šablony</h3>
+                <ul>
+                    <li>Kompaktní průvodce vizuální identitou</li>
+                    <li>Šablony pro příspěvky na sociálních sítích</li>
+                    <li>Grafické prvky, ikony, fotografický styl</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="price-block">
+            <span class="price-hours">40&ndash;60 hodin</span>
+            <span class="price-amount">54 000&ndash;81 000 Kč</span>
+            <span class="price-rate">1 350 Kč/h</span>
+        </div>
+
+
+        <!-- ================================================================ -->
+        <!-- ==================== KROK 2: STRATEGIE ========================= -->
+        <!-- ================================================================ -->
+
+        <div class="dark-section">
+            <h2 id="krok2" style="margin-top: 0;">Krok 2: Marketingová strategie &amp; logika</h2>
+            <span class="step-badge concurrent" style="background-color: #FFB14E; color: #333;">Může běžet souběžně s krokem 1</span>
+            <p style="margin-top: 15px;">Aktuálně věci na sebe nenavazují &ndash; web říká něco jiného než socky, kanály fungují izolovaně. Potřebujeme dát celé komunikaci logiku, směr a propojit kanály &ndash; s jasným cílem: <strong>obchodní expanze na trhy v Česku, Rakousku a Chorvatsku</strong>.</p>
+
+            <div class="feature-grid stagger-children" style="margin-top: 30px;">
+                <div class="feature-card fade-in">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    </div>
+                    <h4>Definice cílů &amp; tone of voice</h4>
+                    <ul>
+                        <li>Cílové skupiny: architekti, projektanti, developeři</li>
+                        <li>Komunikační styl: profesionální, sebevědomý, kvalita řemesla</li>
+                        <li>Cílové trhy: <strong>Česko, Rakousko, Chorvatsko</strong></li>
+                        <li>Odlišení od konkurence</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                    </div>
+                    <h4>Propojení kanálů</h4>
+                    <ul>
+                        <li>Web, Instagram, Facebook, LinkedIn &ndash; jeden jazyk</li>
+                        <li>Prokliky a vzájemné odkazy mezi kanály</li>
+                        <li>Obsahový kalendář a plán</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    </div>
+                    <h4>Nástroje pro expanzi</h4>
+                    <ul>
+                        <li><strong>LinkedIn</strong> &ndash; nejsilnější nástroj pro B2B expanzi na zahraniční trhy</li>
+                        <li><strong>Facebook &amp; Instagram</strong> &ndash; klientský přístup, vizuální prezentace v CZ i zahraničí</li>
+                        <li>Placená reklama jako podpora dosahu</li>
+                        <li>Využití existujících fotek a videí</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="price-block" style="margin-top: 30px;">
+                <span class="price-hours">20&ndash;35 hodin</span>
+                <span class="price-amount">27 000&ndash;47 250 Kč</span>
+                <span class="price-rate">1 350 Kč/h</span>
+            </div>
+        </div>
+
+
+        <!-- ================================================================ -->
+        <!-- ==================== KROK 3: WEB REDESIGN ====================== -->
+        <!-- ================================================================ -->
+
+        <h2 id="krok3" class="fade-in">Krok 3: Redesign webu</h2>
+        <span class="step-badge depends" style="background-color: #75679A;">Navazuje na krok 1 &ndash; vizuální identitu</span>
+        <p style="margin-top: 15px;">Web může vzniknout až po dokončení vizuální identity, protože aplikuje nový brand. Současná struktura webu je přitom poměrně dostatečná &ndash; jde primárně o vizuální facelift a způsob, jakým jsou prezentovány realizace. Kdo dělá designový nábytek, měl by mít web, který vypadá jako prezentace architektonického studia.</p>
+
+        <div class="approach-section scale-in">
+            <h2 style="margin-top: 0;">Co redesign přinese</h2>
+            <div class="approach-steps stagger-children">
+                <div class="step-card fade-in">
+                    <div class="step-number">01</div>
+                    <h4 style="color: white;">Fotky jako dominanta</h4>
+                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 0;">Realizace firmy vypadají skvěle &ndash; web to musí ukázat. Profesionální galerie, portfolio s filtry, architektonický přístup. Žádné malé ikonky &ndash; velké, krásné fotky.</p>
+                </div>
+
+                <div class="step-card fade-in">
+                    <div class="step-number">02</div>
+                    <h4 style="color: white;">Moderní vizuál &amp; struktura</h4>
+                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 0;">Přehledná navigace pro všechny aktivity firmy. Responzivní design, SEO optimalizace, propojení se sociálními sítěmi. Příprava na vícejazyčnost (CZ/DE/HR).</p>
+                </div>
+
+                <div class="step-card fade-in">
+                    <div class="step-number">03</div>
+                    <h4 style="color: white;">Copywriting</h4>
+                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 0;">Kompletní přepis obsahu v novém tone of voice. Texty, které prodávají a odpovídají ambicím firmy. Kontaktní stránka, kariéra, představení týmu.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mac mockupy - ukázky směru -->
+        <h3 class="fade-in" style="margin-top: 40px;">Jakým směrem chceme jít</h3>
+        <p>Ukázky z naší práce &ndash; inspirace pro vizuální styl, který by odpovídal kvalitě realizací INTEX. Můžete scrollovat.</p>
+
+        <div class="mockup-grid">
+            <div>
+                <div class="mac-frame fade-in">
+                    <div class="mac-topbar">
+                        <div class="mac-dot red"></div>
+                        <div class="mac-dot yellow"></div>
+                        <div class="mac-dot green"></div>
+                    </div>
+                    <div class="mac-screen">
+                        <img src="Homepage v2.6.png" alt="Homepage návrh">
+                    </div>
+                </div>
+                <p class="mac-label">Homepage</p>
+            </div>
+
+            <div>
+                <div class="mac-frame fade-in">
+                    <div class="mac-topbar">
+                        <div class="mac-dot red"></div>
+                        <div class="mac-dot yellow"></div>
+                        <div class="mac-dot green"></div>
+                    </div>
+                    <div class="mac-screen">
+                        <img src="Detail projektu - CROSS.png" alt="Detail projektu">
+                    </div>
+                </div>
+                <p class="mac-label">Detail projektu</p>
+            </div>
+        </div>
+
+        <div class="price-block">
+            <span class="price-hours">80&ndash;120 hodin</span>
+            <span class="price-amount">108 000&ndash;162 000 Kč</span>
+            <span class="price-rate">1 350 Kč/h</span>
+        </div>
+
+
+        <!-- ================================================================ -->
+        <!-- ==================== KROK 4: SOCIÁLNÍ SÍTĚ ==================== -->
+        <!-- ================================================================ -->
+
+        <div class="dark-section">
+            <h2 id="krok4" style="margin-top: 0;">Krok 4: LinkedIn Ambassadoring</h2>
+            <p>LinkedIn je nejsilnější nástroj pro B2B akvizici. Navrhujeme začít s jedním ambasadorem &ndash; zástupcem firmy, který bude INTEX reprezentovat přes svůj osobní profil. Proč osobní? Osobní profil má <strong>4&ndash;8&times; větší dosah</strong> než firemní stránka. Proto rozložení příspěvků bude v poměru 3&ndash;4:1 ve prospěch osobního profilu. S firemním profilem ale samozřejmě pracujeme také.</p>
+
+            <h3 style="color: #5f8c94; margin-top: 35px;">LinkedIn &ndash; 1 Ambassador + firemní profil</h3>
+
+            <ul class="benefits-list" style="margin-top: 20px;">
+                <li><strong>Nastavení osobního a firemního profilu</strong> &ndash; včetně textací a důležitých sekcí. Probíhá v prvních 14 dnech, poté navazuje pravidelná správa.</li>
+                <li><strong>Příprava a psaní příspěvků</strong> &ndash; 4&ndash;5 příspěvků měsíčně, rozloženo mezi osobní a firemní profil v poměru 3&ndash;4:1.</li>
+                <li><strong>Měsíční kontrolní den (KD)</strong> &ndash; 1&times; měsíčně si projdeme výsledky, připravené příspěvky a odsouhlasíme nová témata.</li>
+                <li><strong>Aktivní denní/týdenní podpora</strong> &ndash; průběžná komunikace a schvalování příspěvků. Pokud je něco aktuálního, komunikuje se ihned.</li>
+                <li><strong>Budování sítě</strong> &ndash; 150&ndash;200 žádostí o spojení měsíčně, cílené na relevantní osoby z oboru.</li>
+                <li><strong>Rozšiřování sledujících</strong> &ndash; aktivní rozesílání pozvánek ke sledování firemního profilu.</li>
+            </ul>
+
+            <h3 style="color: #5f8c94; margin-top: 40px;">Jak to funguje: 3 fáze</h3>
+
+            <div class="approach-section scale-in" style="margin-top: 20px;">
+                <div class="approach-steps stagger-children">
+                    <div class="step-card fade-in">
+                        <div class="step-number">01</div>
+                        <h4 style="color: white;">Budování sítě</h4>
+                        <p style="color: rgba(255,255,255,0.8); margin-bottom: 0;"><strong>Měsíc 1&ndash;3:</strong> Navazujeme spojení s cílovými skupinami (architekti, projektanti, developeři). Publikujeme obsah &ndash; 1 příspěvek týdně. Zatím nic neprodáváme, jen ukazujeme, co INTEX dělá. Budujeme důvěru.</p>
+                    </div>
+
+                    <div class="step-card fade-in">
+                        <div class="step-number">02</div>
+                        <h4 style="color: white;">Marketingové působení</h4>
+                        <p style="color: rgba(255,255,255,0.8); margin-bottom: 0;">Za 3 měsíce = 12 publikovaných příspěvků. Cílová skupina viděla minimálně 6 z nich. Už nás dokáží zařadit &ndash; vědí, kdo INTEX je a co dělá. Tím se řadíme mezi 2&ndash;3 % lidí, kteří na LinkedIn aktivně publikují.</p>
+                    </div>
+
+                    <div class="step-card fade-in">
+                        <div class="step-number">03</div>
+                        <h4 style="color: white;">Akvizice</h4>
+                        <p style="color: rgba(255,255,255,0.8); margin-bottom: 0;"><strong>Od měsíce 3&ndash;4:</strong> Oslovíme lidi, kteří jsou ve spojení déle než měsíc. Připravíme akviziční zprávu. Úspěšnost bývá kolem 15 %. To znamená konkrétní leady a obchodní příležitosti &ndash; ne jen budování jména.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== ANIMOVANÉ OBCHODNÍ FLOW ===== -->
+            <h3 style="color: #5f8c94; margin-top: 50px;">Ideální obchodní flow</h3>
+
+            <div style="margin: 30px 0 50px 0; position: relative;">
+                <svg viewBox="0 0 1000 320" style="width: 100%; height: auto;" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Sinusovka -->
+                    <path d="M 30 250 Q 110 250, 150 180 Q 190 110, 280 100 Q 370 90, 400 160 Q 430 230, 530 250 Q 630 270, 680 160 Q 730 50, 830 60 Q 930 70, 970 40"
+                          fill="none" stroke="#5f8c94" stroke-width="3" stroke-linecap="round"
+                          class="flow-path" />
+
+                    <!-- Body - zleva doprava, postupné delay -->
+                    <circle cx="30"  cy="250" r="8" fill="#FFB14E" class="flow-dot" style="animation-delay: 0.3s;" />
+                    <circle cx="150" cy="180" r="8" fill="#FFB14E" class="flow-dot" style="animation-delay: 1.1s;" />
+                    <circle cx="280" cy="100" r="8" fill="#FFB14E" class="flow-dot" style="animation-delay: 1.9s;" />
+                    <circle cx="400" cy="160" r="8" fill="#FFB14E" class="flow-dot" style="animation-delay: 2.7s;" />
+                    <circle cx="530" cy="250" r="8" fill="#FFB14E" class="flow-dot" style="animation-delay: 3.5s;" />
+                    <circle cx="680" cy="160" r="8" fill="#FFB14E" class="flow-dot" style="animation-delay: 4.3s;" />
+                    <circle cx="970" cy="40"  r="8" fill="#FFB14E" class="flow-dot" style="animation-delay: 5.5s;" />
+
+                    <!-- Texty - delay = dot delay + 0.3s (vždy PO puntíku) -->
+                    <text x="30" y="285" class="flow-label" style="animation-delay: 0.6s;">Úvodní nastavení</text>
+                    <text x="30" y="300" class="flow-label" style="animation-delay: 0.6s;">profilu</text>
+
+                    <text x="110" y="155" class="flow-label" style="animation-delay: 1.4s;">Budování</text>
+                    <text x="110" y="170" class="flow-label" style="animation-delay: 1.4s;">komunity</text>
+
+                    <text x="250" y="75" class="flow-label" style="animation-delay: 2.2s;">Tvorba</text>
+                    <text x="250" y="90" class="flow-label" style="animation-delay: 2.2s;">obsahu</text>
+
+                    <text x="370" y="198" class="flow-label" style="animation-delay: 3.0s;">Marketingový</text>
+                    <text x="370" y="213" class="flow-label" style="animation-delay: 3.0s;">zásah</text>
+
+                    <text x="490" y="287" class="flow-label" style="animation-delay: 3.8s;">Příprava akviziční</text>
+                    <text x="490" y="302" class="flow-label" style="animation-delay: 3.8s;">skupiny</text>
+
+                    <text x="640" y="135" class="flow-label" style="animation-delay: 4.6s;">Generování</text>
+                    <text x="640" y="150" class="flow-label" style="animation-delay: 4.6s;">leadů</text>
+
+                    <text x="900" y="20" class="flow-label" style="animation-delay: 5.8s;">Pokročilé</text>
+                    <text x="900" y="35" class="flow-label" style="animation-delay: 5.8s;">technologie</text>
+                </svg>
+            </div>
+
+            <div class="price-block" style="margin: 30px 0;">
+                <span class="price-hours">měsíčně</span>
+                <span class="price-amount">19 000 Kč / měsíc</span>
+                <span class="price-rate">1 ambassador + firemní profil, bez DPH</span>
+            </div>
+
+            <p style="color: #999; font-size: 0.9em; margin-top: -10px;">LinkedIn je možné využívat samostatně, nebo jako součást komplexního balíčku Marketing 360&deg; (viz krok 6).</p>
+
+            <div class="table-note" style="margin-top: 20px;">
+                <strong>Součinnost klienta:</strong> První 1&ndash;2 měsíce je potřeba součinnost cca 1,5&ndash;3 hodiny týdně (nastavení profilů, schvalování obsahu). Poté cca 1&ndash;2 hodiny na 14 dní. Pro navazování spojení a přidávání příspěvků je potřeba přímý přístup do osobního profilu.
+            </div>
+
+            <!-- LinkedIn zkušenosti a showcase -->
+            <h3 style="color: #5f8c94; margin-top: 50px;">Naše zkušenosti s LinkedIn</h3>
+            <p>Spravujeme LinkedIn pro desítky firem napříč střední Evropou. Tady jsou naše výsledky.</p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 25px 0 40px 0; align-items: stretch;">
+                <a href="https://on-board.cz/linkedin/" target="_blank" rel="noopener" style="display: block; border-radius: 12px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                    <img src="zkusenosti.png" alt="Naše zkušenosti s LinkedIn" style="width: 100%; height: 100%; object-fit: contain; display: block; border-radius: 12px; border: 2px solid rgba(95,140,148,0.3); transition: border-color 0.3s; background: #111;">
+                </a>
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                    <div style="flex: 1; border-radius: 12px; overflow: hidden;">
+                        <img src="LinkedIn_showcase.png" alt="LinkedIn statistiky" style="width: 100%; display: block; border-radius: 12px; border: 2px solid rgba(95,140,148,0.3);">
+                    </div>
+                    <div style="flex: 1; border-radius: 12px; overflow: hidden;">
+                        <img src="graf-zobrazeniLi.png" alt="Vývoj zobrazení na LinkedIn" style="width: 100%; display: block; border-radius: 12px; border: 2px solid rgba(95,140,148,0.3);">
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="color: #5f8c94; margin-top: 50px;">Instagram &amp; Facebook</h3>
+            <p>Na Instagramu i Facebooku existuje aktivita a dobré fotky. Cílem není kompletní převzetí, ale <strong>dát tomu řád</strong> &ndash; konzistentní vizuál dle nových brand guidelines, sjednocení šablon a propojení s ostatními kanály. Když někdo uvidí příspěvek, měl by hned vědět, že je to INTEX.</p>
+        </div>
+
+
+        <!-- ================================================================ -->
+        <!-- ==================== KROK 5: MEZINÁRODNÍ EXPANZE =============== -->
+        <!-- ================================================================ -->
+
+        <h2 id="krok5" class="fade-in">Krok 5: Mezinárodní expanze &ndash; Rakousko &amp; Chorvatsko</h2>
+        <span class="step-badge depends" style="background-color: #75679A;">Až když jsou základy hotové</span>
+        <p style="margin-top: 15px;">Díky LinkedIn ambassadoringu můžeme přesně specifikovat cílové skupiny podle pozic a regionu. Začneme jedním trhem a jedním ambasadorem &ndash; a díky 3-fázovému procesu (spojení &rarr; marketing &rarr; akvizice) získáme nejen povědomí, ale i <strong>konkrétní obchodní leady</strong>.</p>
+
+        <div class="main-service-box fade-in" style="margin-top: 30px;">
+            <h3 style="margin-top: 0;">Jak LinkedIn funguje pro mezinárodní expanzi</h3>
+            <p>Na LinkedInu dokážeme přesně najít lidi na konkrétních pozicích v konkrétním regionu &ndash; například architekty a projektanty v Rakousku. Nejprve s nimi navážeme spojení. Pak na ně marketingově působíme přes příspěvky (cca 3 měsíce). A teprve potom přecházíme k akvizici s připravenou zprávou. Výsledek? Ověříme, že nás cílová skupina opravdu zná, a přicházíme ke konkrétním jednáním.</p>
+            <p style="margin-bottom: 0;"><strong>Tohle není jen budování jména &ndash; tady se vrací peníze přes konkrétní leady.</strong></p>
+        </div>
+
+        <div class="cards-grid stagger-children" style="margin-top: 30px;">
+            <div class="info-card fade-in">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+                </div>
+                <h3>Lokalizace webu</h3>
+                <ul>
+                    <li>Vícejazyčná verze (CZ / DE / HR)</li>
+                    <li>Profesionální překlady</li>
+                    <li>SEO pro každý trh</li>
+                </ul>
+            </div>
+
+            <div class="info-card fade-in">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                </div>
+                <h3>LinkedIn akvizice</h3>
+                <ul>
+                    <li>Cílení dle pozic a regionu (AT, HR)</li>
+                    <li>Navázání spojení &rarr; obsah &rarr; akvizice</li>
+                    <li>Úspěšnost oslovení cca 15 %</li>
+                </ul>
+            </div>
+
+            <div class="info-card fade-in">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                </div>
+                <h3>Měření &amp; výsledky</h3>
+                <ul>
+                    <li>Konkrétní leady, ne jen dosah</li>
+                    <li>Ověření zájmu cílové skupiny</li>
+                    <li>Kvartální vyhodnocení</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="price-block">
+            <span class="price-hours">30&ndash;40 hodin</span>
+            <span class="price-amount">40 500&ndash;54 000 Kč</span>
+            <span class="price-rate">1 350 Kč/h &middot; zahraniční LinkedIn akvizice je součástí ambassadoringu</span>
+        </div>
+
+
+        <!-- ================================================================ -->
+        <!-- ==================== KROK 6: MARKETING 360° =================== -->
+        <!-- ================================================================ -->
+
+        <div class="dark-section">
+            <h2 id="krok6" style="margin-top: 0;">Krok 6: Marketingová podpora 360&deg;</h2>
+            <p style="color: #5f8c94; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 1.05em; margin-bottom: 20px;">Spolupráce s jasným rámcem</p>
+            <p>Získejte kompletní marketingový tým za jeden předvídatelný rozpočet. Model Marketing 360&deg; je navržen pro klienty, kteří hledají spolehlivého a dlouhodobého partnera. Konkrétní obsah balíčku vyplyne z marketingové strategie (krok 2).</p>
+
+            <h3 style="color: #5f8c94; margin-top: 35px;">Co může být v ceně</h3>
+
+            <div class="feature-grid stagger-children" style="margin-top: 20px;">
+                <div class="feature-card fade-in">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                    </div>
+                    <h4>LinkedIn Ambassadoring</h4>
+                    <p style="color: #b0b0b0; font-size: 0.92em;">Správa ambasadora + firemní profil, tvorba obsahu, budování sítě a akvizice &ndash; vše zahrnuto v balíčku.</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                    </div>
+                    <h4>Správa sociálních sítí</h4>
+                    <p style="color: #b0b0b0; font-size: 0.92em;">Instagram, Facebook &ndash; šablony, obsah, konzistence vizuální identity. Průběžná správa a optimalizace.</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    </div>
+                    <h4>Newsletter</h4>
+                    <p style="color: #b0b0b0; font-size: 0.92em;">Pravidelná komunikace s databází kontaktů. Novinky, realizace, pozvánky. Cenný nástroj pro B2B.</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                    </div>
+                    <h4>Placená reklama</h4>
+                    <p style="color: #b0b0b0; font-size: 0.92em;">Meta Ads, Google Ads &ndash; dle potřeby. Správa kampaní, optimalizace, reporting.</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                    </div>
+                    <h4>Update webu</h4>
+                    <p style="color: #b0b0b0; font-size: 0.92em;">Průběžné aktualizace, nové realizace, úpravy obsahu. Web zůstává živý a aktuální.</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    </div>
+                    <h4>Reporting</h4>
+                    <p style="color: #b0b0b0; font-size: 0.92em;">Měsíční report, kde vidíte vše na jednom místě. Výsledky, náklady, doporučení.</p>
+                </div>
+            </div>
+
+            <h3 style="color: #5f8c94; margin-top: 40px;">Hlavní výhody</h3>
+            <ul class="benefits-list" style="margin-top: 15px;">
+                <li><strong>Plná kontrola nad náklady</strong> &ndash; znáte své měsíční i roční náklady.</li>
+                <li><strong>Garantovaná kapacita a priorita</strong> &ndash; čas týmu je vyhrazený pro vás, úkoly odbavujeme rychle.</li>
+                <li><strong>Strategie i flexibilita</strong> &ndash; plánujeme na kvartál, ale zvládáme i ad hoc požadavky.</li>
+                <li><strong>Ekonomičtější než projektové spolupráce</strong> &ndash; nemusíme držet buffer ani platit za administraci každého projektu. Váš rozpočet jde přímo do práce. Hodinová sazba je o 10 % nižší.</li>
+            </ul>
+
+            <div class="table-note" style="margin-top: 25px;">
+                <strong>Jak pracujeme s rozpočtem?</strong> Pokud se část hodin nevyužije, lze je po dohodě přesunout do dalšího období. Pokud je potřeba více práce, vždy vás předem upozorníme. Vše transparentně a přehledně.
+            </div>
+
+            <div class="price-block" style="margin: 30px 0;">
+                <span class="price-hours">37&ndash;44 hodin měsíčně</span>
+                <span class="price-amount">50 000&ndash;60 000 Kč / měsíc</span>
+                <span class="price-rate">1 350 Kč/h &middot; včetně LinkedIn &middot; bez DPH</span>
+            </div>
+        </div>
+
+
+        <!-- ================================================================ -->
+        <!-- ==================== HARMONOGRAM =============================== -->
+        <!-- ================================================================ -->
+
+        <div class="dark-section">
+            <h2 id="harmonogram" style="margin-top: 0;">Navrhovaný harmonogram</h2>
+            <p>Postupujeme krok za krokem. Některé věci mohou běžet souběžně, jiné musí počkat na dokončení předchozího kroku.</p>
+
+            <div class="timeline-v2" style="margin-top: 30px;">
+                <div class="tl-item fade-in">
+                    <div class="tl-dot"></div>
+                    <div class="tl-body">
+                        <span class="tl-label">Krok 1</span>
+                        <h4 style="color: #ffffff;">Vizuální identita</h4>
+                        <ul>
+                            <li>Facelift vizuální identity a brand guidelines</li>
+                            <li>Sjednocení značky a názvosloví</li>
+                            <li>Šablony pro sociální sítě</li>
+                            <li style="color: #5f8c94; font-weight: 600;">Odhad: 4&ndash;6 týdnů</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tl-item fade-in">
+                    <div class="tl-dot"></div>
+                    <div class="tl-body">
+                        <span class="tl-label" style="background-color: #FFB14E; color: #333;">Souběžně</span>
+                        <h4 style="color: #ffffff;">Marketingová strategie</h4>
+                        <ul>
+                            <li>Definice cílů, tone of voice, content plan</li>
+                            <li>Propojení kanálů a strategie B2B</li>
+                            <li style="color: #5f8c94; font-weight: 600;">Odhad: 3&ndash;4 týdny (souběžně s krokem 1)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tl-item fade-in">
+                    <div class="tl-dot"></div>
+                    <div class="tl-body">
+                        <span class="tl-label" style="background-color: #75679A;">Navazuje</span>
+                        <h4 style="color: #ffffff;">Redesign webu</h4>
+                        <ul>
+                            <li>Aplikace nové identity na web</li>
+                            <li>Copywriting, galerie, portfolio</li>
+                            <li>SEO, vícejazyčnost, propojení socek</li>
+                            <li style="color: #5f8c94; font-weight: 600;">Odhad: 6&ndash;10 týdnů (po dokončení kroku 1)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tl-item fade-in">
+                    <div class="tl-dot"></div>
+                    <div class="tl-body">
+                        <span class="tl-label">Krok 4</span>
+                        <h4 style="color: #ffffff;">LinkedIn Ambassadoring</h4>
+                        <ul>
+                            <li>1 ambassador + firemní profil (19 000 Kč/měsíc)</li>
+                            <li>3-fázový proces: spojení &rarr; marketing &rarr; akvizice</li>
+                            <li style="color: #5f8c94; font-weight: 600;">Průběžně &ndash; start po dokončení strategie</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tl-item fade-in">
+                    <div class="tl-dot"></div>
+                    <div class="tl-body">
+                        <span class="tl-label">Krok 5</span>
+                        <h4 style="color: #ffffff;">Mezinárodní expanze</h4>
+                        <ul>
+                            <li>Lokalizace webu (DE/HR)</li>
+                            <li>Zahraniční sociální sítě a lead generation</li>
+                            <li style="color: #5f8c94; font-weight: 600;">Odhad: po dokončení webu</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tl-item fade-in">
+                    <div class="tl-dot"></div>
+                    <div class="tl-body">
+                        <span class="tl-label">Krok 6</span>
+                        <h4 style="color: #ffffff;">Marketing 360&deg;</h4>
+                        <ul>
+                            <li>Komplexní balíček: LinkedIn + socky + reklama + newsletter + web update</li>
+                            <li>50 000&ndash;60 000 Kč/měsíc (vč. LinkedIn ambassadoringu)</li>
+                            <li style="color: #5f8c94; font-weight: 600;">Průběžně &ndash; po dokončení strategie a identity</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================================================================ -->
+        <!-- ==================== GALERIE SOUČASNÉHO STAVU ================= -->
+        <!-- ================================================================ -->
+
+        <div id="galerie-stav" style="margin-top: 60px;">
+            <h2 class="fade-in">Ukázky současného stavu</h2>
+            <p>Několik příkladů z aktuální online prezentace INTEX &ndash; web, sociální sítě, propagační materiály. Ilustrují prostor, který vidíme pro zlepšení. Kliknutím zvětšíte.</p>
+
+            <div class="gallery-grid" style="margin-top: 30px;">
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="intex-web-full.png" alt="INTEX web - homepage">
+                    <div class="gallery-caption">Web &ndash; homepage (zastaralé fonty, barvy, infografika)</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="intex-web-infografika.png" alt="INTEX web - infografika">
+                    <div class="gallery-caption">Web &ndash; infografika a statistiky (vizuálně nepůsobivé)</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="intex-web-reference-ikonky.png" alt="INTEX web - reference s ikonkami">
+                    <div class="gallery-caption">Web &ndash; reference (ikonky neodpovídají kvalitě realizací)</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="intex-web-reference-hotel.png" alt="INTEX web - hotelová reference">
+                    <div class="gallery-caption">Web &ndash; realizace (fotky jsou dobré, ale špatně prezentované)</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="intex-web-kontakt.png" alt="INTEX web - kontakt">
+                    <div class="gallery-caption">Web &ndash; kontaktní stránka (prázdná, neprofesionální)</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="intex-web-kariera.png" alt="INTEX web - kariéra">
+                    <div class="gallery-caption">Web &ndash; kariéra (špatně čitelné, neosloví)</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="intex-inzerat-tisk.png" alt="INTEX inzerát">
+                    <div class="gallery-caption">Tištěný inzerát (jiné fonty, jiný styl &ndash; nejednotná identita)</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <div class="gallery-badge"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Super</div>
+                    <img src="intex-fb-resort-oblik.png" alt="INTEX Facebook - Resort Oblík">
+                    <div class="gallery-caption">Facebook &ndash; Resort Oblík (dobré fotky, na kterých jde stavět)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lightbox -->
+        <div id="lightbox" class="lightbox-overlay" onclick="closeLightbox(event)">
+            <button class="lightbox-close" onclick="closeLightbox(event)">
+                <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <img id="lightbox-img" src="" alt="">
+            <div id="lightbox-caption" class="lightbox-caption"></div>
+        </div>
+
+
+        <!-- ================================================================ -->
+        <!-- ==================== SOUHRNNÁ CENOVÁ TABULKA ================= -->
+        <!-- ================================================================ -->
+
+        <div class="dark-section">
+            <h2 id="ceny" style="margin-top: 0;">Cenový přehled</h2>
+            <p>Přehled všech služeb, časové náročnosti a cen. Hodinová sazba <strong style="color: #5f8c94;">1 350 Kč/h</strong> platí při komplexní spolupráci <span style="color: #888;">(standardní sazba 1 450 Kč/h)</span>.</p>
+
+            <div class="ptable fade-in" style="margin-top: 30px;">
+                <div class="ptable-head">
+                    <span>Služba</span>
+                    <span>Hodiny</span>
+                    <span>Cena (1 350 Kč/h)</span>
+                    <span>Běžná cena (1 450 Kč/h)</span>
+                </div>
+                <div class="ptable-row">
+                    <span class="pt-service">Krok 1: Vizuální identita</span>
+                    <span class="pt-hours">40&ndash;60 h</span>
+                    <span class="pt-price">54 000&ndash;81 000 Kč</span>
+                    <span class="pt-old">58 000&ndash;87 000 Kč</span>
+                </div>
+                <div class="ptable-row">
+                    <span class="pt-service">Krok 2: Marketingová strategie</span>
+                    <span class="pt-hours">20&ndash;35 h</span>
+                    <span class="pt-price">27 000&ndash;47 250 Kč</span>
+                    <span class="pt-old">29 000&ndash;50 750 Kč</span>
+                </div>
+                <div class="ptable-row">
+                    <span class="pt-service">Krok 3: Redesign webu</span>
+                    <span class="pt-hours">80&ndash;120 h</span>
+                    <span class="pt-price">108 000&ndash;162 000 Kč</span>
+                    <span class="pt-old">116 000&ndash;174 000 Kč</span>
+                </div>
+                <div class="ptable-row">
+                    <span class="pt-service">Krok 4: LinkedIn Ambassadoring</span>
+                    <span class="pt-hours">měsíčně</span>
+                    <span class="pt-price">19 000 Kč / měsíc</span>
+                    <span class="pt-old">&ndash;</span>
+                </div>
+                <div class="ptable-row">
+                    <span class="pt-service">Krok 5: Lokalizace webu (DE/HR)</span>
+                    <span class="pt-hours">30&ndash;40 h</span>
+                    <span class="pt-price">40 500&ndash;54 000 Kč</span>
+                    <span class="pt-old">43 500&ndash;58 000 Kč</span>
+                </div>
+                <div class="ptable-row pt-total">
+                    <span class="pt-service">Jednorázové služby celkem</span>
+                    <span class="pt-hours">170&ndash;255 h</span>
+                    <span class="pt-price">229 500&ndash;344 250 Kč</span>
+                    <span class="pt-old">246 500&ndash;369 750 Kč</span>
+                </div>
+                <div class="ptable-row pt-grand">
+                    <span class="pt-service">Krok 6: Marketing 360&deg; (vč. LinkedIn)</span>
+                    <span class="pt-hours">37&ndash;44 h/měsíc</span>
+                    <span class="pt-price">50 000&ndash;60 000 Kč / měsíc</span>
+                    <span class="pt-old">&ndash;</span>
+                </div>
+            </div>
+
+            <div class="table-note" style="margin-top: 25px;">
+                <strong>Poznámka:</strong> Všechny ceny jsou bez DPH. Hodinová sazba 1 350 Kč/h platí při komplexní spolupráci. Standardní sazba je 1 450 Kč/h. Finální ceny závisí na odsouhlaseném rozsahu.
+            </div>
+        </div>
+
+
+        <!-- ==================== CTA / KONTAKT ==================== -->
+        <div class="cta-section fade-in">
+            <h2>Pojďme se o tom pobavit</h2>
+            <p>Rádi vám detaily projdeme osobně. Navrhujeme začít vizuální identitou &ndash; na ní si spolupráci vyzkoušíme a uvidíme, kam to společně dotáhneme.</p>
+            <a href="mailto:ondra@on-board.cz" class="cta-button">Napište nám</a>
+            <p class="cta-subtext" style="color: #888; font-size: 0.9em; margin-top: 18px;">ondra@on-board.cz &middot; +420 775 915 612 &middot; www.on-board.cz</p>
+        </div>
+
+        <!-- ==================== ON BOARD LOGO (FOOTER) ==================== -->
+        <div style="text-align: center; margin-top: 60px; padding-top: 30px;">
+            <a href="https://on-board.cz" target="_blank" rel="noopener">
+                <img src="logo_black.png" alt="ON BOARD" style="height: 35px; opacity: 0.5;">
+            </a>
+        </div>
+
+    </div>
+
+    <!-- ==================== DOCK NAVIGATION ==================== -->
+    <span class="dock-menu-label" id="dock-menu-text">MENU</span>
+    <div class="dock-nav" id="dock-nav">
+        <a href="#zhodnoceni" data-section="zhodnoceni">
+            <svg class="dock-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <span class="dock-label">Zhodnocení</span>
+        </a>
+        <a href="#krok1" data-section="krok1">
+            <svg class="dock-icon" viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+            <span class="dock-label">1. Identita</span>
+        </a>
+        <a href="#krok2" data-section="krok2">
+            <svg class="dock-icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <span class="dock-label">2. Strategie</span>
+        </a>
+        <a href="#krok3" data-section="krok3">
+            <svg class="dock-icon" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            <span class="dock-label">3. Web</span>
+        </a>
+        <a href="#krok4" data-section="krok4">
+            <svg class="dock-icon" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            <span class="dock-label">4. LinkedIn</span>
+        </a>
+        <a href="#krok5" data-section="krok5">
+            <svg class="dock-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            <span class="dock-label">5. Expanze</span>
+        </a>
+        <a href="#krok6" data-section="krok6">
+            <svg class="dock-icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span class="dock-label">6. Marketing 360°</span>
+        </a>
+        <a href="#harmonogram" data-section="harmonogram">
+            <svg class="dock-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span class="dock-label">Harmonogram</span>
+        </a>
+        <a href="#ceny" data-section="ceny">
+            <svg class="dock-icon" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <span class="dock-label">Ceny</span>
+        </a>
+    </div>
+
+    <!-- ==================== SCROLL ANIMATIONS ==================== -->
+    <script>
+        document.querySelectorAll('.fade-in, .slide-left, .scale-in').forEach(function(el) {
+            el.classList.add('anim-hidden');
+        });
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('anim-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.anim-hidden').forEach(function(el) {
+            observer.observe(el);
+        });
+
+        // Lightbox
+        function openLightbox(item) {
+            var img = item.querySelector('img');
+            var caption = item.querySelector('.gallery-caption');
+            document.getElementById('lightbox-img').src = img.src;
+            document.getElementById('lightbox-caption').textContent = caption ? caption.textContent : '';
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLightbox(e) {
+            if (e.target === document.getElementById('lightbox-img')) return;
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeLightbox(e);
+        });
+
+        // Dock menu label hide on hover
+        var dockEl = document.getElementById('dock-nav');
+        var menuText = document.getElementById('dock-menu-text');
+        if (dockEl && menuText) {
+            dockEl.addEventListener('mouseenter', function() { menuText.style.opacity = '0'; });
+            dockEl.addEventListener('mouseleave', function() { menuText.style.opacity = '1'; });
+        }
+
+        // Dock nav active state + smooth scroll
+        (function() {
+            var dockLinks = document.querySelectorAll('.dock-nav a');
+            var sections = [];
+            dockLinks.forEach(function(link) {
+                var id = link.getAttribute('data-section');
+                var el = document.getElementById(id);
+                if (el) sections.push({ id: id, el: el, link: link });
+            });
+
+            var dockObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        var s = sections.find(function(s) { return s.id === entry.target.id; });
+                        if (s) {
+                            dockLinks.forEach(function(l) { l.classList.remove('active'); });
+                            s.link.classList.add('active');
+                        }
+                    }
+                });
+            }, { rootMargin: '-20% 0px -60% 0px' });
+
+            sections.forEach(function(s) { dockObserver.observe(s.el); });
+
+            dockLinks.forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    var id = this.getAttribute('data-section');
+                    var target = document.getElementById(id);
+                    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            });
+        })();
+
+        // Auto-scroll Mac mockups
+        document.querySelectorAll('.mac-screen').forEach(function(screen) {
+            var scrolling = true;
+            var direction = 1;
+            var speed = 0.5;
+
+            function autoScroll() {
+                if (!scrolling) { requestAnimationFrame(autoScroll); return; }
+                screen.scrollTop += direction * speed;
+                if (screen.scrollTop >= screen.scrollHeight - screen.clientHeight) { direction = -1; }
+                if (screen.scrollTop <= 0) { direction = 1; }
+                requestAnimationFrame(autoScroll);
+            }
+
+            screen.addEventListener('mouseenter', function() { scrolling = false; });
+            screen.addEventListener('mouseleave', function() { scrolling = true; });
+            screen.addEventListener('touchstart', function() { scrolling = false; });
+            screen.addEventListener('touchend', function() { setTimeout(function() { scrolling = true; }, 2000); });
+
+            // Start after image loads
+            var img = screen.querySelector('img');
+            if (img) {
+                if (img.complete) { autoScroll(); }
+                else { img.addEventListener('load', autoScroll); }
+            }
+        });
+    </script>
+</body>
+</html>
