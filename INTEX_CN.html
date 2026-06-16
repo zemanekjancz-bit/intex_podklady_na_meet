@@ -634,9 +634,37 @@
             .dark-section { margin: 40px -20px; padding: 40px 20px; }
             .mockup-grid { grid-template-columns: 1fr; }
         }
+
+        /* ===== TOP-RIGHT BUTTON ===== */
+        .top-right-btn {
+            position: fixed;
+            top: 24px;
+            right: 28px;
+            z-index: 1000;
+            display: inline-block;
+            background: linear-gradient(135deg, #5f8c94 0%, #4a7179 100%);
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.88em;
+            letter-spacing: 0.3px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            box-shadow: 0 4px 16px rgba(95, 140, 148, 0.35);
+            transition: all 0.3s ease;
+        }
+        .top-right-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(95, 140, 148, 0.5);
+        }
+        @media (max-width: 600px) {
+            .top-right-btn { top: 12px; right: 12px; font-size: 0.78em; padding: 10px 16px; }
+        }
     </style>
 </head>
 <body>
+    <a href="https://cn-intex.vercel.app/" target="_blank" rel="noopener" class="top-right-btn">Cenová nabídka</a>
     <div class="container">
 
         <!-- ==================== ON BOARD LOGO ==================== -->
@@ -768,38 +796,21 @@
                     <div class="card-icon">
                         <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                     </div>
-                    <h4>Definice cílů &amp; tone of voice</h4>
-                    <ul>
-                        <li>Cílové skupiny: architekti, projektanti, developeři</li>
-                        <li>Komunikační styl: profesionální, sebevědomý, kvalita řemesla</li>
-                        <li>Cílové trhy: <strong>Česko, Rakousko, Chorvatsko</strong></li>
-                        <li>Odlišení od konkurence</li>
-                    </ul>
+                    <h4>Existuje zpracovaná strategie historicky?</h4>
                 </div>
 
                 <div class="feature-card fade-in">
                     <div class="card-icon">
                         <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
                     </div>
-                    <h4>Propojení kanálů</h4>
-                    <ul>
-                        <li>Web, Instagram, Facebook, LinkedIn &ndash; jeden jazyk</li>
-                        <li>Prokliky a vzájemné odkazy mezi kanály</li>
-                        <li>Obsahový kalendář a plán</li>
-                    </ul>
+                    <h4>Jedete aktuálně placenou reklamu? <span style="display: inline-block; background-color: #BD5353; color: white; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.65em; text-transform: uppercase; letter-spacing: 1px; padding: 3px 10px; border-radius: 4px; vertical-align: middle; margin-left: 4px;">nenašli jsme</span></h4>
                 </div>
 
                 <div class="feature-card fade-in">
                     <div class="card-icon">
                         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
                     </div>
-                    <h4>Nástroje pro expanzi</h4>
-                    <ul>
-                        <li><strong>LinkedIn</strong> &ndash; nejsilnější nástroj pro B2B expanzi na zahraniční trhy</li>
-                        <li><strong>Facebook &amp; Instagram</strong> &ndash; klientský přístup, vizuální prezentace v CZ i zahraničí</li>
-                        <li>Placená reklama jako podpora dosahu</li>
-                        <li>Využití existujících fotek a videí</li>
-                    </ul>
+                    <h4>Co jste v marketingu zkoušeli, co podle Vás fungovalo dobře?</h4>
                 </div>
             </div>
 
